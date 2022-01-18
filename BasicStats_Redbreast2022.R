@@ -1,4 +1,4 @@
-# Rebreast project 2021 
+# Redbreast project 2022 
 # Date: 11/23/2021, updated 01/12/2022
 # Author(s): Olivia H Hawkins 
 # Goals: clean and summarize data,statistical assumptions, transformations 
@@ -20,11 +20,14 @@ library(lmer4)
 library(RColorBrewer)
 library(lmerTest)
 library(reshape2)
+library(rptR)
 
 # Read in data 
+# This data sheet is available at: browse.URL("")
 data <- read.csv("RedBreast_2021.csv")
 
 # Subset data that will be used in analysis ----
+# Individual
 all.data <- data %>%
   dplyr::select(Individual,SL,PG,TTO,TTC,PPROT,PPROTVEL,tPPROT,VELPG,maxVEL,tmaxVEL,ACCPG,H_L_ratio,AI,ingested_volume,PPDiopen,timeatcapture,VELpreycapture)%>%
   group_by(Individual)%>%
@@ -46,7 +49,7 @@ mean(all.data$SL) #9.80
 sd(all.data$SL) # 0.92
 
 # Write to .csv 
-write_csv(means,file = "Redbreast_summarystats_2021.csv",append = TRUE)
+write_csv(means,file = "Redbreast_summarystats_2021.csv",append = FALSE)
 
 # Check assumptions ----
 # Normality, homogeneity of variance,independence of observations
@@ -58,10 +61,19 @@ write_csv(means,file = "Redbreast_summarystats_2021.csv",append = TRUE)
 sw <- ddply(.data=all.data, .variables=c("Individual"),numcolwise(shapiro.test))
 sw <- sw[-c(3:4,7:8,11:12,15:16,19:20),]
 
-sw.results <- gather(data = sw,key = Variable, value=Results,2:18) # Looks like some fish do not meet normality
+sw.results <- gather(data = sw,key = Variable, value=Results,2:18)
+
+# Add column to show what the value is (W statistic and p value)
+sw.results$Value <- rep(c("W statistic","p value"))
+
+# Find the individual x variable combination that violates normality 
+sw.results2 <- sw.results %>%
+   group_by(Individual)%>%
+    filter(Value=="p value")%>% 
+  filter(Results<0.05)
 
 # Visualize normality by individual
-ggqqplot(all.data, x = "PG",
+ggqqplot(data=all.data, x = ("PG"),
          color = "Individual",facet.by="Individual") # some not
 ggqqplot(all.data, x = "TTO",
          color = "Individual",facet.by = "Individual") # some not
@@ -219,11 +231,6 @@ leveneTest(all.data$ingested_volume~all.data$Individual) # P < 0.0001
 leveneTest(all.data$PPDiopen~all.data$Individual) # p = 0.02
 leveneTest(all.data$timeatcapture~all.data$Individual) # p = 0.02
 leveneTest(all.data$VELpreycapture~all.data$Individual) # p < 0.0001
-
-
-
-
-
 
 
 
@@ -717,6 +724,5 @@ VELPG_mod <- lmer(VELPG_scale_ind~Strategy + (1|Individual), data=all.data.ind)
 summary(VELPG_mod)
 anova(VELPG_mod)
 
-# Future work 
-# Partial least squares for swimming vs feeding ??
-# Figure it out 
+
+# Repeatability measurement and liklihood ratio for confidence intervals 
