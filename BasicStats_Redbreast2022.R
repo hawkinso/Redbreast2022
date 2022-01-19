@@ -112,107 +112,108 @@ ggqqplot(all.data, x = "VELpreycapture",
 Fish.1 <- all.data %>%
   filter(Individual=="LAUR01")
 
-Fish.1 %>% identify_outliers(PG)
-Fish.1 %>% identify_outliers(TTO)
-Fish.1 %>% identify_outliers(TTC)
-Fish.1 %>% identify_outliers(PPROT)
-Fish.1 %>% identify_outliers(PPROTVEL)
-Fish.1 %>% identify_outliers(tPPROT)
-Fish.1 %>% identify_outliers(VELPG)
-Fish.1 %>% identify_outliers(maxVEL)
-Fish.1 %>% identify_outliers(tmaxVEL)
-Fish.1 %>% identify_outliers(ACCPG)
-Fish.1 %>% identify_outliers(H_L_ratio)
-Fish.1 %>% identify_outliers(AI)
-Fish.1 %>% identify_outliers(ingested_volume)
-Fish.1 %>% identify_outliers(PPDiopen)
-Fish.1 %>% identify_outliers(timeatcapture)
-Fish.1 %>% identify_outliers(VELpreycapture)
+Fish.1 %>% select(PG) %>% identify_outliers() # three extreme 
+Fish.1 %>% select(TTO) %>% identify_outliers() # three extreme
+Fish.1 %>% select(TTC) %>% identify_outliers(TTC)
+Fish.1 %>% select(PPROT) %>% identify_outliers(PPROT)
+Fish.1 %>% select(PPROTVEL) %>% identify_outliers(PPROTVEL) # two extreme 
+Fish.1 %>% select(tPPROT) %>% identify_outliers(tPPROT) # one extreme 
+Fish.1 %>% select(VELPG) %>% identify_outliers(VELPG)
+Fish.1 %>% select(maxVEL) %>% identify_outliers(maxVEL)
+Fish.1 %>% select(tmaxVEL) %>% identify_outliers(tmaxVEL) # one extreme 
+Fish.1 %>% select(ACCPG) %>% identify_outliers(ACCPG) # one extreme 
+Fish.1 %>% select(H_L_ratio) %>% identify_outliers(H_L_ratio)
+Fish.1 %>% select(AI) %>% identify_outliers(AI)
+Fish.1 %>% select(ingested_volume) %>% identify_outliers(ingested_volume)
+Fish.1 %>% select(PPDiopen) %>% identify_outliers(PPDiopen)
+Fish.1 %>% select(timeatcapture) %>% identify_outliers(timeatcapture)
+Fish.1 %>% select(VELpreycapture) %>% identify_outliers(VELpreycapture)
 
 
 # Individual 2 
 Fish.2 <- all.data %>%
   filter(Individual=="LAUR02")
 
-Fish.2 %>% identify_outliers(PG)
-Fish.2 %>% identify_outliers(TTO)
-Fish.2 %>% identify_outliers(TTC)
-Fish.2 %>% identify_outliers(PPROT)
-Fish.2 %>% identify_outliers(PPROTVEL)
-Fish.2 %>% identify_outliers(tPPROT)
-Fish.2 %>% identify_outliers(VELPG)
-Fish.2 %>% identify_outliers(maxVEL)
-Fish.2 %>% identify_outliers(tmaxVEL)
-Fish.2 %>% identify_outliers(ACCPG)
-Fish.2 %>% identify_outliers(H_L_ratio)
-Fish.2 %>% identify_outliers(AI)
-Fish.2 %>% identify_outliers(ingested_volume)
-Fish.2 %>% identify_outliers(PPDiopen)
-Fish.2 %>% identify_outliers(timeatcapture)
-Fish.2 %>% identify_outliers(VELpreycapture)
+Fish.2 %>% select(PG) %>% identify_outliers() # two extreme 
+Fish.2 %>% select(TTO) %>% identify_outliers() # two extreme
+Fish.2 %>% select(TTC) %>% identify_outliers(TTC)
+Fish.2 %>% select(PPROT) %>% identify_outliers(PPROT) # two extreme
+Fish.2 %>% select(PPROTVEL) %>% identify_outliers(PPROTVEL) 
+Fish.2 %>% select(tPPROT) %>% identify_outliers(tPPROT) # one extreme 
+Fish.2 %>% select(VELPG) %>% identify_outliers(VELPG)
+Fish.2 %>% select(maxVEL) %>% identify_outliers(maxVEL)
+Fish.2 %>% select(tmaxVEL) %>% identify_outliers(tmaxVEL) # one extreme 
+Fish.2 %>% select(ACCPG) %>% identify_outliers(ACCPG) # one extreme 
+Fish.2 %>% select(H_L_ratio) %>% identify_outliers(H_L_ratio)
+Fish.2 %>% select(AI) %>% identify_outliers(AI)
+Fish.2 %>% select(ingested_volume) %>% identify_outliers(ingested_volume)
+Fish.2 %>% select(PPDiopen) %>% identify_outliers(PPDiopen) # one extreme 
+Fish.2 %>% select(timeatcapture) %>% identify_outliers(timeatcapture)
+Fish.2 %>% select(VELpreycapture) %>% identify_outliers(VELpreycapture)
+
 
 # Individual 3
 Fish.3 <- all.data %>%
   filter(Individual=="LAUR03")
 
-Fish.3 %>% identify_outliers(PG)
-Fish.3 %>% identify_outliers(TTO)
-Fish.3 %>% identify_outliers(TTC)
-Fish.3 %>% identify_outliers(PPROT)
-Fish.3 %>% identify_outliers(PPROTVEL)
-Fish.3 %>% identify_outliers(tPPROT)
-Fish.3 %>% identify_outliers(VELPG)
-Fish.3 %>% identify_outliers(maxVEL)
-Fish.3 %>% identify_outliers(tmaxVEL)
-Fish.3 %>% identify_outliers(ACCPG)
-Fish.3 %>% identify_outliers(H_L_ratio)
-Fish.3 %>% identify_outliers(AI)
-Fish.3 %>% identify_outliers(ingested_volume)
-Fish.3 %>% identify_outliers(PPDiopen)
-Fish.3 %>% identify_outliers(timeatcapture)
-Fish.3 %>% identify_outliers(VELpreycapture)
+Fish.3 %>% select(PG) %>% identify_outliers()  
+Fish.3 %>% select(TTO) %>% identify_outliers() 
+Fish.3 %>% select(TTC) %>% identify_outliers(TTC)
+Fish.3 %>% select(PPROT) %>% identify_outliers(PPROT) 
+Fish.3 %>% select(PPROTVEL) %>% identify_outliers(PPROTVEL) 
+Fish.3 %>% select(tPPROT) %>% identify_outliers(tPPROT) 
+Fish.3 %>% select(VELPG) %>% identify_outliers(VELPG)
+Fish.3 %>% select(maxVEL) %>% identify_outliers(maxVEL)
+Fish.3 %>% select(tmaxVEL) %>% identify_outliers(tmaxVEL) 
+Fish.3 %>% select(ACCPG) %>% identify_outliers(ACCPG) # one extreme
+Fish.3 %>% select(H_L_ratio) %>% identify_outliers(H_L_ratio)
+Fish.3 %>% select(AI) %>% identify_outliers(AI)
+Fish.3 %>% select(ingested_volume) %>% identify_outliers(ingested_volume) # one extreme
+Fish.3 %>% select(PPDiopen) %>% identify_outliers(PPDiopen) # one extreme 
+Fish.3 %>% select(timeatcapture) %>% identify_outliers(timeatcapture)
+Fish.3 %>% select(VELpreycapture) %>% identify_outliers(VELpreycapture)
 
 # Individual 4 
 Fish.4 <- all.data %>%
   filter(Individual=="LAUR04")
 
-Fish.4 %>% identify_outliers(PG)
-Fish.4 %>% identify_outliers(TTO)
-Fish.4 %>% identify_outliers(TTC)
-Fish.4 %>% identify_outliers(PPROT)
-Fish.4 %>% identify_outliers(PPROTVEL)
-Fish.4 %>% identify_outliers(tPPROT)
-Fish.4 %>% identify_outliers(VELPG)
-Fish.4 %>% identify_outliers(maxVEL)
-Fish.4 %>% identify_outliers(tmaxVEL)
-Fish.4 %>% identify_outliers(ACCPG)
-Fish.4 %>% identify_outliers(H_L_ratio)
-Fish.4 %>% identify_outliers(AI)
-Fish.4 %>% identify_outliers(ingested_volume)
-Fish.4 %>% identify_outliers(PPDiopen)
-Fish.4 %>% identify_outliers(timeatcapture)
-Fish.4 %>% identify_outliers(VELpreycapture)
+Fish.4 %>% select(PG) %>% identify_outliers()  
+Fish.4 %>% select(TTO) %>% identify_outliers() 
+Fish.4 %>% select(TTC) %>% identify_outliers(TTC)
+Fish.4 %>% select(PPROT) %>% identify_outliers(PPROT) 
+Fish.4 %>% select(PPROTVEL) %>% identify_outliers(PPROTVEL) 
+Fish.4 %>% select(tPPROT) %>% identify_outliers(tPPROT)  
+Fish.4 %>% select(VELPG) %>% identify_outliers(VELPG)
+Fish.4 %>% select(maxVEL) %>% identify_outliers(maxVEL)
+Fish.4 %>% select(tmaxVEL) %>% identify_outliers(tmaxVEL)  
+Fish.4 %>% select(ACCPG) %>% identify_outliers(ACCPG) 
+Fish.4 %>% select(H_L_ratio) %>% identify_outliers(H_L_ratio)
+Fish.4 %>% select(AI) %>% identify_outliers(AI)
+Fish.4 %>% select(ingested_volume) %>% identify_outliers(ingested_volume)
+Fish.4 %>% select(PPDiopen) %>% identify_outliers(PPDiopen)  
+Fish.4 %>% select(timeatcapture) %>% identify_outliers(timeatcapture)
+Fish.4 %>% select(VELpreycapture) %>% identify_outliers(VELpreycapture)
 
-# Indvidual 5 
+# Indivdual 5 
 Fish.5 <- all.data %>%
   filter(Individual=="LAUR05")
 
-Fish.5 %>% identify_outliers(PG)
-Fish.5 %>% identify_outliers(TTO)
-Fish.5 %>% identify_outliers(TTC)
-Fish.5 %>% identify_outliers(PPROT)
-Fish.5 %>% identify_outliers(PPROTVEL)
-Fish.5 %>% identify_outliers(tPPROT)
-Fish.5 %>% identify_outliers(VELPG)
-Fish.5 %>% identify_outliers(maxVEL)
-Fish.5 %>% identify_outliers(tmaxVEL)
-Fish.5 %>% identify_outliers(ACCPG)
-Fish.5 %>% identify_outliers(H_L_ratio)
-Fish.5 %>% identify_outliers(AI)
-Fish.5 %>% identify_outliers(ingested_volume)
-Fish.5 %>% identify_outliers(PPDiopen)
-Fish.5 %>% identify_outliers(timeatcapture)
-Fish.5 %>% identify_outliers(VELpreycapture)
+Fish.5 %>% select(PG) %>% identify_outliers()  
+Fish.5 %>% select(TTO) %>% identify_outliers() 
+Fish.5 %>% select(TTC) %>% identify_outliers(TTC)
+Fish.5 %>% select(PPROT) %>% identify_outliers(PPROT) 
+Fish.5 %>% select(PPROTVEL) %>% identify_outliers(PPROTVEL) 
+Fish.5 %>% select(tPPROT) %>% identify_outliers(tPPROT) 
+Fish.5 %>% select(VELPG) %>% identify_outliers(VELPG)
+Fish.5 %>% select(maxVEL) %>% identify_outliers(maxVEL)
+Fish.5 %>% select(tmaxVEL) %>% identify_outliers(tmaxVEL)  
+Fish.5 %>% select(ACCPG) %>% identify_outliers(ACCPG) 
+Fish.5 %>% select(H_L_ratio) %>% identify_outliers(H_L_ratio)
+Fish.5 %>% select(AI) %>% identify_outliers(AI)
+Fish.5 %>% select(ingested_volume) %>% identify_outliers(ingested_volume)
+Fish.5 %>% select(PPDiopen) %>% identify_outliers(PPDiopen) 
+Fish.5 %>% select(timeatcapture) %>% identify_outliers(timeatcapture)
+Fish.5 %>% select(VELpreycapture) %>% identify_outliers(VELpreycapture)
 
 # Check homogeneity of variance with Levene's test 
 leveneTest(all.data$PG~all.data$Individual)
@@ -242,14 +243,15 @@ ggboxplot(all.data, x = "Individual", y = "SL", add = "point")
 # Outliers
 SL <- all.data %>%  # no extreme outliers 
   group_by(Individual) %>%
-  identify_outliers(SL)
+  select(SL) %>%
+  identify_outliers()
 
 # Normality 
 shapiro.test(all.data$SL) # p = 0.01 
 ggqqplot(all.data$SL) # looks ok 
 
 # General linear mixed model 
-# Some variables are influenced by size... we will need to scale variables by standard length??
+# Some variables are influenced by size... we will need to scale variables by standard length
 PGmod.SL <- lmer(PG~SL+(1|Individual),data=all.data)
 summary(PGmod.SL) 
 
@@ -261,6 +263,7 @@ summary(TTCmod.SL)
 
 PPROTmod.SL <- lmer(PPROT~SL+(1|Individual),data=all.data)
 summary(PPROTmod.SL) # p = 0.006
+
 
 PPROTVELmod.SL <- lmer(PPROTVEL~SL+(1|Individual),data=all.data)
 summary(PPROTVELmod.SL) # p = 0.02
@@ -297,6 +300,25 @@ summary(timeatcapturemod.SL)
 
 VELpreycapturemod.SL <- lmer(VELpreycapture~SL+(1|Individual),data=all.data)
 summary(VELpreycapturemod.SL) # p = 0.002
+
+# Determining the repeatability measure and confidence intervals (CI) ----
+# Repeatability measures how individuals contrast in behavior and if those contrasts in behavior are consistent. 
+# We can use sum of squares for individuals and for the residuals and then use parametric bootstrapping to calculate CI 
+
+# Make a function to pull the required components to calculate repeatability. 
+
+Rmes <- function(IDSSq,RESSSq){
+    individual.variance <- (IDSSq/(IDSSq+RESSSq))*100
+    print(individual.variance)
+  } 
+
+
+
+
+
+
+
+
 
 # Diagnostic plots ---- 
 
@@ -458,112 +480,6 @@ names(CV_melt)[3] <- "CV"
 # Export data 
 write_csv(CV_melt,file = "Redbreast_CV_2021.csv",append = TRUE)
 
-# PCA ----
-
-PCA_data <- all.data
-PCA_data$Individual <- as.numeric(all.data$Individual)
-
-# Export data for PCA
-write_csv(PCA_data,file="PCA_data_Redbreast2021.csv")
-
-# Read in data
-pca.data <- read.csv(file = "PCA_data_Redbreast2021.csv")
-pca.data$Individual <- as.factor(all.data$Individual)
-
-# Subset the feeding and locomotion variables out 
-pca.data_mod <- pca.data %>%
-  dplyr::select(SL,PG,TTO,TTC,PPROT,PPROTVEL,tPPROT,VELPG,maxVEL,tmaxVEL,ACCPG)
-
-# Run PCA 
-results <- prcomp(pca.data_mod,scale=TRUE)
-
-#display principal components
-comp <- results$x
-
-#calculate total variance explained by each principal component
-var <- results$sdev^2
-var_results <- round(var/sum(var)*100,1)
-
-# Make biplot 
-biplot(results,scale=0)
-
-# Save results from components analysis ad data frame (PC)
-comp.out <- as.data.frame(comp)
-
-# Make Individual and Population factors again 
-comp.out$Individual <- as.factor(all.data$Individual)
-
-# Get the PCA output and check out other stats/properties of the components 
-output.var <- get_pca_var(results) # get coordinates
-fviz_pca_var(results)
-fviz_eig(results) # skree plot : pc under 10% difference between components not as important 
-
-# get the loading scores for each component. In prcomp(), loading scores are referred to as "rotation"
-load.score <- results$rotation[,1] # loading by PC of choice
-variable.score <- abs(load.score) # magnitude of loadings
-ranked.score <- sort(variable.score,decreasing=TRUE)
-top.ten <- names(ranked.score[1:10])
-fviz_contrib(results, choice="var",axes=1, top=10) # See what variables are explaining variation 
-fviz_contrib(results, choice="var",axes=2, top=10)
-
-## Graph 
-# Rename the factors 
-levels(comp.out$Individual) <- c("LAUR01","LAUR02","LAUR03","LAUR04","LAUR05")
-
-ggplot(comp.out,aes(x=PC1,y=PC2,color=Individual,group=Individual)) +
-  geom_point()+
-  scale_color_brewer(palette="Paired")+
-  theme_classic()+
-  xlab("PC1 (47.8%)")+
-  ylab("PC2 (22.3%)")+
-  stat_ellipse()
-
-## Calculate the distribution of scores for each PC
-fish1.pc1 <- comp.out$PC1[comp.out$Individual=="LAUR01"]
-fish1.pc2 <- comp.out$PC2[comp.out$Individual=="LAUR01"]
-
-fish2.pc1 <- comp.out$PC1[comp.out$Individual=="LAUR02"]
-fish2.pc2 <- comp.out$PC2[comp.out$Individual=="LAUR02"]
-
-fish3.pc1 <- comp.out$PC1[comp.out$Individual=="LAUR03"]
-fish3.pc2 <- comp.out$PC2[comp.out$Individual=="LAUR03"]
-
-fish4.pc1 <- comp.out$PC1[comp.out$Individual=="LAUR04"]
-fish4.pc2 <- comp.out$PC2[comp.out$Individual=="LAUR04"]
-
-fish5.pc1 <- comp.out$PC1[comp.out$Individual=="LAUR05"]
-fish5.pc2 <- comp.out$PC2[comp.out$Individual=="LAUR05"]
-
-PC1_scores <- data.frame(fish1.pc1,fish2.pc1,
-                         fish3.pc1,fish4.pc1,
-                         fish5.pc1)
-PC1_scores <- cbind(stack(PC1_scores[,1:5]))
-PC1_scores$ind <- comp.out$Individual
-
-PC2_scores <- data.frame(fish1.pc2,fish2.pc2,
-                         fish3.pc2,fish4.pc2,
-                         fish5.pc2)
-PC2_scores <- cbind(stack(PC2_scores[,1:5]))
-PC2_scores$ind <- comp.out$Individual
-
-ggplot(data=PC1_scores, aes(x=values ,group=ind, fill=ind)) +
-  geom_density(adjust=1.5, alpha=.4)+
-  theme_classic()+
-  ylab("Density") +
-  xlab("PC1 scores")+
-  scale_fill_discrete(name = "Individual")
-
-ggplot(data=PC2_scores, aes(x=values ,group=ind, fill=ind)) +
-  geom_density(adjust=1.5, alpha=.4)+
-  theme_classic()+
-  ylab("Density") +
-  xlab("PC2 scores")+
-  scale_fill_discrete(name = "Individual")
-
-
-# Get mean PC scores for each fish 
-ddply(.data = PC1_scores,.variables = c("ind"),summarize, mean=mean(values),sd=sd(values))
-ddply(.data = PC2_scores,.variables = c("ind"),summarize, mean=mean(values),sd=sd(values))
 
 # Taking a look at integration ---- 
 # Remind ourselves of the density plots 
