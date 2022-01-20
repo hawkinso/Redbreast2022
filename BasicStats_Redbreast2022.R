@@ -6,6 +6,10 @@
 # Git hub repository 
 browseURL("https://github.com/hawkinso/Redbreast2022.git")
 
+# Info about data: 
+# Sex: LAUR01 and LAUR04 are male, LAUR02, LAUR03, and LAUR05 are female 
+# 
+
 # Load in libraries 
 library(ggpubr)
 library(ggplot2)
@@ -21,6 +25,7 @@ library(RColorBrewer)
 library(lmerTest)
 library(reshape2)
 library(rptR)
+library(ggridges)
 
 # Read in data 
 # This data sheet is available at: browse.URL("")
@@ -305,16 +310,71 @@ summary(VELpreycapturemod.SL) # p = 0.002
 # Repeatability measures how individuals contrast in behavior and if those contrasts in behavior are consistent. 
 # We can use sum of squares for individuals and for the residuals and then use parametric bootstrapping to calculate CI 
 
-# Make a function to pull the required components to calculate repeatability. 
+pg <- rpt(PG ~ SL + (1|Individual), grname = "Individual", data= all.data, datatype="Gaussian",nboot=1000,npermut=0)
+plot(pg)
+summary(pg)
 
-Rmes <- function(IDSSq,RESSSq){
-    individual.variance <- (IDSSq/(IDSSq+RESSSq))*100
-    print(individual.variance)
-  } 
+tto <- rpt(TTO ~ SL + (1|Individual), grname = "Individual", data= all.data, datatype="Gaussian",nboot=1000,npermut=0)
+plot(tto)
+summary(tto)
 
+ttc <- rpt(TTC ~ SL + (1|Individual), grname = "Individual", data= all.data, datatype="Gaussian",nboot=1000,npermut=0)
+plot(ttc)
+summary(ttc)
 
+pprot <- rpt(PPROT ~ SL + (1|Individual), grname = "Individual", data= all.data, datatype="Gaussian",nboot=1000,npermut=0)
+plot(pprot)
+summary(pprot)
 
+tpprot <- rpt(tPPROT ~ SL + (1|Individual), grname = "Individual", data= all.data, datatype="Gaussian",nboot=1000,npermut=0)
+plot(tpprot)
+summary(tpprot)
 
+pprotvel <- rpt(PPROTVEL ~ SL + (1|Individual), grname = "Individual", data= all.data, datatype="Gaussian",nboot=1000,npermut=0)
+plot(pprotvel)
+summary(pprotvel)
+
+velpg <- rpt(VELPG ~ SL + (1|Individual), grname = "Individual", data= all.data, datatype="Gaussian",nboot=1000,npermut=0)
+plot(velpg)
+summary(velpg)
+
+maxvel <- rpt(maxVEL ~ SL + (1|Individual), grname = "Individual", data= all.data, datatype="Gaussian",nboot=1000,npermut=0)
+plot(maxvel)
+summary(maxvel)
+
+tmaxvel <- rpt(tmaxVEL ~ SL + (1|Individual), grname = "Individual", data= all.data, datatype="Gaussian",nboot=1000,npermut=0)
+plot(tmaxvel)
+summary(tmaxvel)
+
+accpg <- rpt(ACCPG ~ SL + (1|Individual), grname = "Individual", data= all.data, datatype="Gaussian",nboot=1000,npermut=0)
+plot(accpg)
+summary(accpg)
+
+hlratio <- rpt(H_L_ratio ~ SL + (1|Individual), grname = "Individual", data= all.data, datatype="Gaussian",nboot=1000,npermut=0)
+plot(hlratio)
+summary(hlratio)
+
+ai <- rpt(AI ~ SL + (1|Individual), grname = "Individual", data= all.data, datatype="Gaussian",nboot=1000,npermut=0)
+plot(ai)
+summary(ai)
+
+ingestedvol <- rpt(ingested_volume ~ SL + (1|Individual), grname = "Individual", data= all.data, datatype="Gaussian",nboot=1000,npermut=0)
+plot(ingestedvol)
+summary(ingestedvol)
+
+ppd <- rpt(PPDiopen ~ SL + (1|Individual), grname = "Individual", data= all.data, datatype="Gaussian",nboot=1000,npermut=0)
+plot(ppd)
+summary(ppd)
+
+timeatcap <- rpt(timeatcapture ~ SL + (1|Individual), grname = "Individual", data= all.data, datatype="Gaussian",nboot=1000,npermut=0)
+plot(timeatcap)
+summary(timeatcap)
+
+velpreycapture <- rpt(VELpreycapture ~ SL + (1|Individual), grname = "Individual", data= all.data, datatype="Gaussian",nboot=1000,npermut=0)
+plot(velpreycapture)
+summary(velpreycapture)
+
+# We can also calculate intra-class correlation  
 
 
 
@@ -429,6 +489,19 @@ ggplot(data=all.data, aes(x=VELpreycapture ,group=Individual, fill=Individual)) 
   theme_classic()+
   ylab("Density") +
   xlab("Velocity at prey capture (cm/s)")
+
+## Try ridge plots to parse out histogram differences -----
+
+ggplot(all.data, aes(x = PG_scale, y = Individual)) +
+  geom_density_ridges(aes(fill = Individual),scale = 1.3, quantile_lines=TRUE,
+                      quantile_fun=function(x,...)median(x))+
+  theme_classic() 
+
+ggplot(all.data, aes(x = VELPG_scale, y = Individual)) +
+  geom_density_ridges(aes(fill = Individual),scale = 1.3, quantile_lines=TRUE,
+                      quantile_fun=function(x,...)median(x))+
+  theme_classic() 
+
 
 
 # Coefficient of variation by individual ----
@@ -594,12 +667,12 @@ names(all.data.ind)[4] <- "Strategy"
 
 # Subset data into categories 
 small.mouth.ind <- all.data.ind %>%
-  select(Individual,VELPG_scale_ind,PG_scale_ind,line)%>%
-  filter(line=="Small mouth")
+  select(Individual,VELPG_scale_ind,PG_scale_ind,Strategy)%>%
+  filter(Strategy=="Small mouth")
 
 large.mouth.ind <- all.data.ind %>%
-  select(Individual,VELPG_scale_ind,PG_scale_ind,line)%>%
-  filter(line=="Large mouth")
+  select(Individual,VELPG_scale_ind,PG_scale_ind,Strategy)%>%
+  filter(Strategy=="Large mouth")
 
 # Graph again 
 names(small.mouth.ind)[4] <- "Strategy"
@@ -642,3 +715,234 @@ anova(VELPG_mod)
 
 
 # Repeatability measurement and liklihood ratio for confidence intervals 
+
+
+
+
+
+
+
+# PCA ----
+# First regress all of the individual response variables by standard length to remove the effect of size 
+# Make function to extract residuals 
+ResidExtract <- function(Y,X,data){
+  model <- lm(Y~X)
+  data.frame(model$residuals)
+}
+
+# Extract residuals 
+PG <- ResidExtract(Y=all.data$PG,X=all.data$SL)
+TTO <- ResidExtract(Y=all.data$TTO,X=all.data$SL)
+TTC <- ResidExtract(Y=all.data$TTC,X=all.data$SL)
+PPROT <- ResidExtract(Y=all.data$PPROT,X=all.data$SL)
+PPROTVEL <- ResidExtract(Y=all.data$PPROTVEL,X=all.data$SL)
+tPPROT <- ResidExtract(Y=all.data$tPPROT,X=all.data$SL)
+VELPG <- ResidExtract(Y=all.data$VELPG,X=all.data$SL)
+maxVEL <- ResidExtract(Y=all.data$maxVEL,X=all.data$SL)
+tmaxVEL <- ResidExtract(Y=all.data$tmaxVEL,X=all.data$SL)
+ACCPG <- ResidExtract(Y=all.data$ACCPG,X=all.data$SL)
+
+# Make dataframe with just residuals
+all.data.res <- data.frame(PG,TTO,TTC,PPROT,PPROTVEL,tPPROT,VELPG,maxVEL,tmaxVEL,ACCPG)
+colnames(all.data.res) <- c("PG","TTO","TTC","PPROT","PPROTVEL","tPPROT","VELPG","maxVEL","tmaxVEL","ACCPG")
+
+# Add the individual grouping and the strategy ("line")
+all.data.res$Individual <- as.factor(all.data$Individual)
+all.data.res$line <- as.factor(all.data$line)
+
+PCA_data <- all.data.res
+
+# Export data for PCA
+write_csv(PCA_data,file="PCA_data_Redbreast2021.csv")
+
+# Read in data
+pca.data <- read.csv(file = "PCA_data_Redbreast2021.csv")
+
+# Subset the feeding and locomotion variables out 
+pca.data_mod <- pca.data %>%
+  dplyr::select(PG,TTO,TTC,PPROT,PPROTVEL,tPPROT,VELPG,maxVEL,tmaxVEL,ACCPG)
+
+# Run PCA 
+results <- prcomp(pca.data_mod,scale=TRUE)
+
+#display principal components
+comp <- results$x
+
+#calculate total variance explained by each principal component
+var <- results$sdev^2
+var_results <- round(var/sum(var)*100,1)
+
+# Make biplot 
+biplot(results,scale=0)
+
+# Save results from components analysis ad data frame (PC)
+comp.out <- as.data.frame(comp)
+
+# Make a column with individual and strategy together
+comp.out$Ind_Strat <- paste(all.data.res$Individual, all.data.res$line)
+
+
+# Get the PCA output and check out other stats/properties of the components 
+fviz_pca_var(results)
+fviz_eig(results) # skree plot : pc under 10% difference between components not as important 
+
+# get the loading scores for each component. In prcomp(), loading scores are referred to as "rotation"
+load.score <- results$rotation[,1] # loading by PC of choice
+variable.score <- abs(load.score) # magnitude of loadings
+ranked.score <- sort(variable.score,decreasing=TRUE)
+top.ten <- names(ranked.score[1:10])
+fviz_contrib(results, choice="var",axes=1, top=10) # See what variables are explaining variation 
+fviz_contrib(results, choice="var",axes=2, top=10)
+
+## Graph 
+# Rename the factors 
+levels(comp.out$Individual) <- c("LAUR01","LAUR02","LAUR03","LAUR04","LAUR05")
+
+ggplot(comp.out,aes(x=PC1,y=PC2,color=Individual,shape=line,group=Ind_Strat)) +
+  geom_point()+
+  scale_color_brewer(palette="Paired")+
+  theme_classic()+
+  xlab("PC1 (50.4%)")+
+  ylab("PC2 (19.6%)")+
+  stat_ellipse()
+
+## Calculate the distribution of scores for each PC
+fish1.pc1 <- comp.out$PC1[comp.out$Individual=="LAUR01"]
+fish1.pc2 <- comp.out$PC2[comp.out$Individual=="LAUR01"]
+
+fish2.pc1 <- comp.out$PC1[comp.out$Individual=="LAUR02"]
+fish2.pc2 <- comp.out$PC2[comp.out$Individual=="LAUR02"]
+
+fish3.pc1 <- comp.out$PC1[comp.out$Individual=="LAUR03"]
+fish3.pc2 <- comp.out$PC2[comp.out$Individual=="LAUR03"]
+
+fish4.pc1 <- comp.out$PC1[comp.out$Individual=="LAUR04"]
+fish4.pc2 <- comp.out$PC2[comp.out$Individual=="LAUR04"]
+
+fish5.pc1 <- comp.out$PC1[comp.out$Individual=="LAUR05"]
+fish5.pc2 <- comp.out$PC2[comp.out$Individual=="LAUR05"]
+
+PC1_scores <- data.frame(fish1.pc1,fish2.pc1,
+                         fish3.pc1,fish4.pc1,
+                         fish5.pc1)
+PC1_scores <- cbind(stack(PC1_scores[,1:5]))
+PC1_scores$ind <- comp.out$Individual
+
+PC2_scores <- data.frame(fish1.pc2,fish2.pc2,
+                         fish3.pc2,fish4.pc2,
+                         fish5.pc2)
+PC2_scores <- cbind(stack(PC2_scores[,1:5]))
+PC2_scores$ind <- comp.out$Individual
+
+ggplot(data=PC1_scores, aes(x=values ,group=ind, fill=ind)) +
+  geom_density(adjust=1.5, alpha=.4)+
+  theme_classic()+
+  ylab("Density") +
+  xlab("PC1 scores")+
+  scale_fill_discrete(name = "Individual")
+
+ggplot(data=PC2_scores, aes(x=values ,group=ind, fill=ind)) +
+  geom_density(adjust=1.5, alpha=.4)+
+  theme_classic()+
+  ylab("Density") +
+  xlab("PC2 scores")+
+  scale_fill_discrete(name = "Individual")
+
+
+# Get mean PC scores for each fish 
+ddply(.data = PC1_scores,.variables = c("ind"),summarize, mean=mean(values),sd=sd(values))
+ddply(.data = PC2_scores,.variables = c("ind"),summarize, mean=mean(values),sd=sd(values))
+
+
+## Make a PCA for just large mouth strategy and another for small mouth strategy 
+PCA_data_large <- all.data.res %>% 
+  filter(line=="Large mouth")
+PCA_data_small <- all.data.res %>% 
+  filter(line=="Small mouth")
+
+# Export data for PCA
+write_csv(PCA_data_large,file="PCA_data_largemouth_Redbreast2021.csv")
+write_csv(PCA_data_small,file="PCA_data_smallmouth_Redbreast2021.csv")
+
+# Read in data
+pca.data.large <- read.csv(file = "PCA_data_largemouth_Redbreast2021.csv")
+pca.data.small <- read.csv(file = "PCA_data_smallmouth_Redbreast2021.csv")
+
+# Subset the feeding and locomotion variables out 
+pca.data_mod_large <- pca.data.large %>%
+  dplyr::select(PG,TTO,TTC,PPROT,PPROTVEL,tPPROT,VELPG,maxVEL,tmaxVEL,ACCPG)
+pca.data_mod_small <- pca.data.small %>%
+  dplyr::select(PG,TTO,TTC,PPROT,PPROTVEL,tPPROT,VELPG,maxVEL,tmaxVEL,ACCPG)
+
+# Run PCA 
+results_large <- prcomp(pca.data_mod_large,scale=TRUE)
+results_small <- prcomp(pca.data_mod_small,scale=TRUE)
+
+#display principal components
+comp.large <- results_large$x
+comp.small <- results_small$x
+
+#calculate total variance explained by each principal component
+var_large <- results_large$sdev^2
+var_results_large <- round(var_large/sum(var_large)*100,1)
+
+var_small <- results_small$sdev^2
+var_results_small <- round(var_small/sum(var_small)*100,1)
+
+
+# Make biplot 
+biplot(results_large,scale=0)
+biplot(results_small,scale=0)
+
+
+# Save results from components analysis ad data frame (PC)
+comp.out.large <- as.data.frame(comp.large)
+comp.out.small <- as.data.frame(comp.small)
+
+# Add Individual column back in as factor 
+comp.out.large$Individual <- PCA_data_large$Individual
+comp.out.small$Individual <- PCA_data_small$Individual
+
+# Get the PCA output and check out other stats/properties of the components 
+fviz_pca_var(results_large)
+fviz_eig(results_large) 
+
+fviz_pca_var(results_small)
+fviz_eig(results_small) 
+
+# get the loading scores for each component. In prcomp(), loading scores are referred to as "rotation"
+# Adjust for large and small mouth strategy if interested in these particular numbers 
+load.score <- results$rotation[,1] # loading by PC of choice
+variable.score <- abs(load.score) # magnitude of loadings
+ranked.score <- sort(variable.score,decreasing=TRUE)
+top.ten <- names(ranked.score[1:10])
+
+fviz_contrib(results_large, choice="var",axes=1, top=10) # See what variables are explaining variation 
+fviz_contrib(results_large, choice="var",axes=2, top=10)
+
+fviz_contrib(results_small, choice="var",axes=1, top=10) # See what variables are explaining variation 
+fviz_contrib(results_small, choice="var",axes=2, top=10)
+
+## Graph 
+# Rename the factors 
+levels(comp.out.large$Individual) <- c("LAUR01","LAUR02","LAUR03","LAUR04","LAUR05")
+levels(comp.out.small$Individual) <- c("LAUR01","LAUR02","LAUR03","LAUR04","LAUR05")
+
+ggplot(comp.out.large,aes(x=PC1,y=PC2,color=Individual,group=Individual)) +
+  geom_point()+
+  scale_color_brewer(palette="Paired")+
+  theme_classic()+
+  xlab("PC1 (39.7%)")+
+  ylab("PC2 (17.5%)")+
+  stat_ellipse()+
+  ggtitle("Large gape strategy")
+
+ggplot(comp.out.small,aes(x=PC1,y=PC2,color=Individual,group=Individual)) +
+  geom_point()+
+  scale_color_brewer(palette="Paired")+
+  theme_classic()+
+  xlab("PC1 (51.7%)")+
+  ylab("PC2 (14.2%)")+
+  stat_ellipse()+
+  ggtitle("Small gape strategy")
+
