@@ -1,7 +1,11 @@
 # Redbreast project 2022 
 # Date: 01/24/2022
 # Author(s): Olivia H Hawkins 
-# Goals:Large mouth data set, statistical assumptions + analysis 
+# Goals:Split the data into large mouth and small mouth datasets
+
+# Info about code: Upon initial investigation of the data, it was discovered that there were two peaks for peak gape, a common 
+# metric used in determining integration. Due to the dual peak nature of the data, normality assumptions are violated 
+# and make analyses complicated. We choose to split the data as it appears two strategies are being used by most of the individuals 
 
 # Git hub repository 
 browseURL("https://github.com/hawkinso/Redbreast2022.git")
