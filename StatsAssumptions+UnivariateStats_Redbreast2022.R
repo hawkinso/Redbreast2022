@@ -751,15 +751,18 @@ ppd.aov.large <- ResANOVA(large.data$PPDiopen,large.data$Individual)
 time.aov.large <- ResANOVA(large.data$timeatcapture,large.data$Individual)
 
 
-
-
-
-
-
-
-
-
-
-
-
-# Large mouth data 
+# Make boxplots where the strategies are next to each other, dots are included, and color coded by individual 
+ggplot(all.data, aes(x=Strategy, y=PG)) + 
+  geom_boxplot()+
+  geom_jitter(aes(color=Individual), size=2, alpha=0.9)+
+theme_classic()+ 
+  scale_color_brewer(palette="Dark2")+
+  ylim(0,1.65)+
+  theme(axis.text.x=element_text(size=12),
+        axis.text.y=element_text(size=12),
+        axis.title.x = element_text(face="bold"),
+        axis.title.y = element_text(face="bold"))+
+  ylab("Peak gape (cm)") 
+  
+  
+ 
