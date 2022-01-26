@@ -733,6 +733,7 @@ ratio.aov.small <- ResANOVA(small.data$H_L_ratio,small.data$Individual)
 vol.aov.small <- ResANOVA(small.data$ingested_volume,small.data$Individual)
 ppd.aov.small <- ResANOVA(small.data$PPDiopen,small.data$Individual)
 time.aov.small <- ResANOVA(small.data$timeatcapture,small.data$Individual)
+velcapture.aov.small <- ResANOVA(small.data$VELpreycapture,small.data$Individual)
 
 # Large mouth data 
 pg.aov.large <- ResANOVA(large.data$PG,large.data$Individual)
@@ -749,7 +750,28 @@ ratio.aov.large <- ResANOVA(large.data$H_L_ratio,large.data$Individual)
 vol.aov.large <- ResANOVA(large.data$ingested_volume,large.data$Individual)
 ppd.aov.large <- ResANOVA(large.data$PPDiopen,large.data$Individual)
 time.aov.large <- ResANOVA(large.data$timeatcapture,large.data$Individual)
+velcapture.aov.large <- ResANOVA(large.data$VELpreycapture,large.data$Individual)
 
+# Write CSV files with results 
+small.aov <- data.frame(rbind(pg.aov.small,tto.aov.small,ttc.aov.small,pprot.aov.small,pprotvel.aov.small,tpprot.aov.small,velpg.aov.small,maxvel.aov.small,tmaxvel.aov.small,accpg.aov.small,ratio.aov.small,vol.aov.small,ppd.aov.small,
+                       time.aov.small,velcapture.aov.small))
+small.aov$Stat.Designation <- rep(c("Individuals","Residuals"),length.out=30)
+colnames(small.aov) <- c("Df","SumSquares","MeanSumSquares","F.stat","p.value","Stat.Designation")
+
+small.aov <- small.aov %>%
+  select(Stat.Designation,everything())
+
+
+large.aov <- data.frame(rbind(pg.aov.large,tto.aov.large,ttc.aov.large,pprot.aov.large,pprotvel.aov.large,tpprot.aov.large,velpg.aov.large,maxvel.aov.large,tmaxvel.aov.large,accpg.aov.large,ratio.aov.large,vol.aov.large,ppd.aov.large,
+                              time.aov.large,velcapture.aov.large))
+large.aov$Stat.Designation <- rep(c("Individuals","Residuals"),length.out=30)
+colnames(large.aov) <- c("Df","SumSquares","MeanSumSquares","F.stat","p.value","Stat.Designation")
+
+large.aov <- large.aov %>%
+  select(Stat.Designation,everything())
+
+write.csv(small.aov,"ANOVAResults_smallmouth_Redbreast.csv")
+write.csv(large.aov,"ANOVAResults_largemouth_Redbreast.csv")
 
 # Make boxplots where the strategies are next to each other, dots are included, and color coded by individual 
 ggplot(all.data, aes(x=Strategy, y=PG)) + 
