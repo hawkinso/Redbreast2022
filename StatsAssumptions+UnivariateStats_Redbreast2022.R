@@ -762,7 +762,228 @@ theme_classic()+
         axis.text.y=element_text(size=12),
         axis.title.x = element_text(face="bold"),
         axis.title.y = element_text(face="bold"))+
-  ylab("Peak gape (cm)") 
-  
-  
- 
+  ylab("Peak gape (cm)")+
+  stat_compare_means(method = "t.test",label.y=1.65,label.x=2)
+
+ggplot(all.data, aes(x=Strategy, y=TTO)) + 
+  geom_boxplot()+
+  geom_jitter(aes(color=Individual), size=2, alpha=0.9)+
+  theme_classic()+ 
+  ylim(-90,70)+
+  geom_hline(yintercept=0,linetype=2)+ # this is used to show where peak gape is 
+  scale_color_brewer(palette="Dark2")+
+  theme(axis.text.x=element_text(size=12),
+        axis.text.y=element_text(size=12),
+        axis.title.x = element_text(face="bold"),
+        axis.title.y = element_text(face="bold"))+
+  ylab("Time to mouth opening (ms)")+
+  stat_compare_means(method = "t.test",label.y=70,label.x=2)
+
+ggplot(all.data, aes(x=Strategy, y=TTC)) + 
+  geom_boxplot()+
+  geom_jitter(aes(color=Individual), size=2, alpha=0.9)+
+  theme_classic()+ 
+  ylim(0,165)+
+  geom_hline(yintercept=0,linetype=2)+
+  scale_color_brewer(palette="Dark2")+
+  theme(axis.text.x=element_text(size=12),
+        axis.text.y=element_text(size=12),
+        axis.title.x = element_text(face="bold"),
+        axis.title.y = element_text(face="bold"))+
+  ylab("Time to mouth closing (ms)")+
+  stat_compare_means(method = "t.test",label.y=165,label.x=2)
+
+ggplot(all.data, aes(x=Strategy, y=PPROT)) + 
+  geom_boxplot()+
+  geom_jitter(aes(color=Individual), size=2, alpha=0.9)+
+  theme_classic()+ 
+  ylim(0,1.5)+
+  scale_color_brewer(palette="Dark2")+
+  theme(axis.text.x=element_text(size=12),
+        axis.text.y=element_text(size=12),
+        axis.title.x = element_text(face="bold"),
+        axis.title.y = element_text(face="bold"))+
+  ylab("Peak protrusion (cm)")+
+  stat_compare_means(method = "t.test",label.y=1.5,label.x=2)
+
+ggplot(all.data, aes(x=Strategy, y=PPROTVEL)) + 
+  geom_boxplot()+
+  geom_jitter(aes(color=Individual), size=2, alpha=0.9)+
+  theme_classic()+ 
+  ylim(0,70)+
+  scale_color_brewer(palette="Dark2")+
+  theme(axis.text.x=element_text(size=12),
+        axis.text.y=element_text(size=12),
+        axis.title.x = element_text(face="bold"),
+        axis.title.y = element_text(face="bold"))+
+  ylab("Peak protrusion velocity (cm/s)")+
+  stat_compare_means(method = "t.test",label.y=70,label.x=2)
+
+ggplot(all.data, aes(x=Strategy, y=tPPROT)) + 
+  geom_boxplot()+
+  geom_jitter(aes(color=Individual), size=2, alpha=0.9)+
+  theme_classic()+ 
+  ylim(-90,90)+
+  geom_hline(yintercept=0,linetype=2)+
+  scale_color_brewer(palette="Dark2")+
+  theme(axis.text.x=element_text(size=12),
+        axis.text.y=element_text(size=12),
+        axis.title.x = element_text(face="bold"),
+        axis.title.y = element_text(face="bold"))+
+  ylab("Timing of peak protrusion (ms)")+
+  stat_compare_means(method = "t.test",label.y=90,label.x=2)
+
+ggplot(all.data, aes(x=Strategy, y=VELPG)) + 
+  geom_boxplot()+
+  geom_jitter(aes(color=Individual), size=2, alpha=0.9)+
+  theme_classic()+ 
+  ylim(0,90)+
+  scale_color_brewer(palette="Dark2")+
+  theme(axis.text.x=element_text(size=12),
+        axis.text.y=element_text(size=12),
+        axis.title.x = element_text(face="bold"),
+        axis.title.y = element_text(face="bold"))+
+  ylab("Velocity at peak gape (cm/s)")+
+  stat_compare_means(method = "t.test",label.y=90,label.x=2)
+
+ggplot(all.data, aes(x=Strategy, y=maxVEL)) + 
+  geom_boxplot()+
+  geom_jitter(aes(color=Individual), size=2, alpha=0.9)+
+  theme_classic()+ 
+  ylim(0,120)+
+  scale_color_brewer(palette="Dark2")+
+  theme(axis.text.x=element_text(size=12),
+        axis.text.y=element_text(size=12),
+        axis.title.x = element_text(face="bold"),
+        axis.title.y = element_text(face="bold"))+
+  ylab("Maximum velocity (cm/s)")+
+  stat_compare_means(method = "t.test",label.y=120,label.x=2)
+
+ggplot(all.data, aes(x=Strategy, y=tmaxVEL)) + 
+  geom_boxplot()+
+  geom_jitter(aes(color=Individual), size=2, alpha=0.9)+
+  theme_classic()+ 
+  ylim(-120,120)+
+  geom_hline(yintercept=0,linetype=2)+
+  scale_color_brewer(palette="Dark2")+
+  theme(axis.text.x=element_text(size=12),
+        axis.text.y=element_text(size=12),
+        axis.title.x = element_text(face="bold"),
+        axis.title.y = element_text(face="bold"))+
+  ylab("Timing of maximum velocity (ms)")+
+  stat_compare_means(method = "t.test",label.y=120,label.x=2)
+
+ggplot(all.data, aes(x=Strategy, y=ACCPG)) + 
+  geom_boxplot()+
+  geom_jitter(aes(color=Individual), size=2, alpha=0.9)+
+  theme_classic()+ 
+  ylim(0,90)+
+  scale_color_brewer(palette="Dark2")+
+  theme(axis.text.x=element_text(size=12),
+        axis.text.y=element_text(size=12),
+        axis.title.x = element_text(face="bold"))+
+  ylab(bquote(bold('Acceleration at peak gape'~(cm/s^2))))+
+  stat_compare_means(method = "t.test",label.y=90,label.x=2)
+
+ggplot(all.data, aes(x=Strategy, y=H_L_ratio)) + 
+  geom_boxplot()+
+  geom_jitter(aes(color=Individual), size=2, alpha=0.9)+
+  theme_classic()+ 
+  ylim(0,2)+
+  scale_color_brewer(palette="Dark2")+
+  theme(axis.text.x=element_text(size=12),
+        axis.text.y=element_text(size=12),
+        axis.title.x = element_text(face="bold"),
+        axis.title.y = element_text(face="bold"))+
+  ylab("Height to length ratio of volume")+
+  stat_compare_means(method = "t.test",label.y=2,label.x=2)
+
+ggplot(all.data, aes(x=Strategy, y=AI)) + 
+  geom_boxplot()+
+  geom_jitter(aes(color=Individual), size=2, alpha=0.9)+
+  theme_classic()+ 
+  ylim(0,1)+
+  scale_color_brewer(palette="Dark2")+
+  theme(axis.text.x=element_text(size=12),
+        axis.text.y=element_text(size=12),
+        axis.title.x = element_text(face="bold"),
+        axis.title.y = element_text(face="bold"))+
+  ylab("Accuracy Index")+
+  stat_compare_means(method = "t.test",label.y=1,label.x=2)
+
+ggplot(all.data, aes(x=Strategy, y=ingested_volume)) + 
+  geom_boxplot()+
+  geom_jitter(aes(color=Individual), size=2, alpha=0.9)+
+  theme_classic()+ 
+  ylim(0,50)+
+  scale_color_brewer(palette="Dark2")+
+  theme(axis.text.x=element_text(size=12),
+        axis.text.y=element_text(size=12),
+        axis.title.x = element_text(face="bold"),
+        axis.title.y = element_text(face="bold"))+
+  ylab(bquote(bold("Ingested volume"~(cm^3))))+
+  stat_compare_means(method = "t.test",label.y=50,label.x=2)  
+
+ggplot(all.data, aes(x=Strategy, y=PPDiopen)) + 
+  geom_boxplot()+
+  geom_jitter(aes(color=Individual), size=2, alpha=0.9)+
+  theme_classic()+ 
+  ylim(0,3)+
+  scale_color_brewer(palette="Dark2")+
+  theme(axis.text.x=element_text(size=12),
+        axis.text.y=element_text(size=12),
+        axis.title.x = element_text(face="bold"),
+        axis.title.y = element_text(face="bold"))+
+  ylab("Predator-prey distance at mouth opening (cm)")+
+  stat_compare_means(method = "t.test",label.y=3,label.x=2) 
+
+ggplot(all.data, aes(x=Strategy, y=VELpreycapture)) + 
+  geom_boxplot()+
+  geom_jitter(aes(color=Individual), size=2, alpha=0.9)+
+  theme_classic()+ 
+  ylim(0,90)+
+  scale_color_brewer(palette="Dark2")+
+  theme(axis.text.x=element_text(size=12),
+        axis.text.y=element_text(size=12),
+        axis.title.x = element_text(face="bold"),
+        axis.title.y = element_text(face="bold"))+
+  ylab("Velocity at prey capture (cm/s)")+
+  stat_compare_means(method = "t.test",label.y=90,label.x=2)
+
+ggplot(all.data, aes(x=Strategy, y=timeatcapture)) + 
+  geom_boxplot()+
+  geom_jitter(aes(color=Individual), size=2, alpha=0.9)+
+  theme_classic()+ 
+  ylim(-90,90)+
+  geom_hline(yintercept=0,linetype=2)+
+  scale_color_brewer(palette="Dark2")+
+  theme(axis.text.x=element_text(size=12),
+        axis.text.y=element_text(size=12),
+        axis.title.x = element_text(face="bold"),
+        axis.title.y = element_text(face="bold"))+
+  ylab("Timing of prey capture (ms)")+
+  stat_compare_means(method = "t.test",label.y=90,label.x=2)
+
+
+# Run t-tests to compare kinematics used during small mouth and large mouth strategies 
+ResTTest <- function(Y,Grouping){
+  mod <- t.test(Y~Grouping)
+  data.frame(mod$statistic,mod$parameter,mod$p.value, mod$conf.int)
+} 
+
+pg.t <- ResTTest(all.data$PG,all.data$Strategy)
+tto.t <- ResTTest(all.data$TTO,all.data$Strategy)
+ttc.t <- ResTTest(all.data$TTC,all.data$Strategy)
+pprot.t <- ResTTest(all.data$PPROT,all.data$Strategy)
+pprotvel.t <- ResTTest(all.data$PPROTVEL,all.data$Strategy)
+tpprot.t <- ResTTest(all.data$tPPROT,all.data$Strategy)
+velpg.t <- ResTTest(all.data$VELPG,all.data$Strategy)
+maxvel.t <- ResTTest(all.data$maxVEL,all.data$Strategy)
+tmaxvel.t <- ResTTest(all.data$tmaxVEL,all.data$Strategy)
+accpg.t <- ResTTest(all.data$ACCPG,all.data$Strategy)
+ratio.t <- ResTTest(all.data$H_L_ratio,all.data$Strategy)
+vol.t <- ResTTest(all.data$ingested_volume,all.data$Strategy)
+ppd.t <- ResTTest(all.data$PPDiopen,all.data$Strategy)
+time.t <- ResTTest(all.data$timeatcapture,all.data$Strategy)
+
+
