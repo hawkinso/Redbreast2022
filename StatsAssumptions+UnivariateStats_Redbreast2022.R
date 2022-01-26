@@ -442,5 +442,324 @@ leveneTest(large.data$PPDiopen~large.data$Individual)
 leveneTest(large.data$timeatcapture~large.data$Individual) 
 leveneTest(large.data$VELpreycapture~large.data$Individual) # 0.009
 
+## Visualize data by strategy by individual:: HISTOGRAM
+pg.small <- ggplot(data=small.data, aes(x=PG ,group=Individual, fill=Individual)) +
+  geom_density(adjust=1.5, alpha=.4)+
+  theme_classic()+
+  ylab("Density")+
+  xlab("Peak gape (cm)") +
+  xlim(0,1.75)
+pg.large <- ggplot(data=large.data, aes(x=PG ,group=Individual, fill=Individual)) +
+  geom_density(adjust=1.5, alpha=.4)+
+  theme_classic()+
+  ylab("Density")+
+  xlab("Peak gape (cm)") +
+  xlim(0,1.75)
+ggarrange(pg.small,pg.large,
+          labels = c("A", "B"),
+          ncol = 1, nrow = 2)
+
+tto.small <- ggplot(data=small.data, aes(x=TTO ,group=Individual, fill=Individual)) +
+  geom_density(adjust=1.5, alpha=.4)+
+  theme_classic()+
+  ylab("Density")+
+  xlab("Duration of mouth opening (ms)")+
+  xlim(-80,80)
+tto.large <- ggplot(data=large.data, aes(x=TTO ,group=Individual, fill=Individual)) +
+  geom_density(adjust=1.5, alpha=.4)+
+  theme_classic()+
+  ylab("Density")+
+  xlab("Duration of mouth opening (ms)")+
+  xlim(-80,80)
+ggarrange(tto.small,tto.large,
+          labels = c("A", "B"),
+          ncol = 1, nrow = 2)
+
+ttc.small <- ggplot(data=small.data, aes(x=TTC ,group=Individual, fill=Individual)) +
+  geom_density(adjust=1.5, alpha=.4) +
+  theme_classic()+
+  ylab("Density")+
+  xlab("Duration of mouth closing (ms)")+
+  xlim(0,160)
+ttc.large <- ggplot(data=large.data, aes(x=TTC ,group=Individual, fill=Individual)) +
+  geom_density(adjust=1.5, alpha=.4) +
+  theme_classic()+
+  ylab("Density")+
+  xlab("Duration of mouth closing (ms)")+
+  xlim(0,160)
+ggarrange(ttc.small,ttc.large,
+          labels = c("A", "B"),
+          ncol = 1, nrow = 2)
 
 
+pprot.small <- ggplot(data=small.data, aes(x=PPROT ,group=Individual, fill=Individual)) +
+  geom_density(adjust=1.5, alpha=.4) +
+  theme_classic()+
+  ylab("Density")+
+  xlab("Peak protrusion (cm)")+
+  xlim(0,0.8)
+pprot.large <- ggplot(data=large.data, aes(x=PPROT ,group=Individual, fill=Individual)) +
+  geom_density(adjust=1.5, alpha=.4) +
+  theme_classic()+
+  ylab("Density")+
+  xlab("Peak protrusion (cm)")+
+  xlim(0,0.8)
+ggarrange(pprot.small,pprot.large,
+          labels = c("A", "B"),
+          ncol = 1, nrow = 2)
+
+pprotvel.small <- ggplot(data=small.data, aes(x=PPROTVEL ,group=Individual, fill=Individual)) +
+  geom_density(adjust=1.5, alpha=.4)+
+  theme_classic()+
+  ylab("Density") +
+  xlab("Protrusion velocity (cm/s)")+
+  xlim(0,60)
+pprotvel.large <- ggplot(data=large.data, aes(x=PPROTVEL ,group=Individual, fill=Individual)) +
+  geom_density(adjust=1.5, alpha=.4)+
+  theme_classic()+
+  ylab("Density") +
+  xlab("Protrusion velocity (cm/s)")+
+  xlim(0,60)
+ggarrange(pprotvel.small,pprotvel.large,
+          labels = c("A", "B"),
+          ncol = 1, nrow = 2)
+
+
+tpprot.small <- ggplot(data=small.data, aes(x=tPPROT ,group=Individual, fill=Individual)) +
+  geom_density(adjust=1.5, alpha=.4)+
+  theme_classic()+
+  ylab("Density")+
+  xlab("Timing of peak protrusion (ms)")+
+  xlim(-40,100)
+tpprot.large <- ggplot(data=large.data, aes(x=tPPROT ,group=Individual, fill=Individual)) +
+  geom_density(adjust=1.5, alpha=.4)+
+  theme_classic()+
+  ylab("Density")+
+  xlab("Timing of peak protrusion (ms)")+
+  xlim(-40,100)
+ggarrange(tpprot.small,tpprot.large,
+          labels = c("A", "B"),
+          ncol = 1, nrow = 2)
+
+velpg.small <- ggplot(data=small.data, aes(x=VELPG ,group=Individual, fill=Individual)) +
+  geom_density(adjust=1.5, alpha=.4)+
+  theme_classic()+
+  ylab("Density") +
+  xlab("Velocity at peak gape (cm/s)")+
+  xlim(0,100)
+velpg.large <- ggplot(data=large.data, aes(x=VELPG ,group=Individual, fill=Individual)) +
+  geom_density(adjust=1.5, alpha=.4)+
+  theme_classic()+
+  ylab("Density") +
+  xlab("Velocity at peak gape (cm/s)") +
+  xlim(0,100)
+ggarrange(velpg.small,velpg.large,
+          labels = c("A", "B"),
+          ncol = 1, nrow = 2)
+
+
+maxvel.small <- ggplot(data=small.data, aes(x=maxVEL ,group=Individual, fill=Individual)) +
+  geom_density(adjust=1.5, alpha=.4)+
+  theme_classic()+
+  ylab("Density") +
+  xlab("Maximum velocity (cm/s)")+
+  xlim(0,120)
+maxvel.large <- ggplot(data=large.data, aes(x=maxVEL ,group=Individual, fill=Individual)) +
+  geom_density(adjust=1.5, alpha=.4)+
+  theme_classic()+
+  ylab("Density") +
+  xlab("Maximum velocity (cm/s)")+
+  xlim(0,120)
+ggarrange(maxvel.small,maxvel.large,
+          labels = c("A", "B"),
+          ncol = 1, nrow = 2)
+
+
+tmaxvel.small <- ggplot(data=small.data, aes(x=tmaxVEL ,group=Individual, fill=Individual)) +
+  geom_density(adjust=1.5, alpha=.4)+
+  theme_classic()+
+  ylab("Density")+
+  xlab("Timing of maximum velocity (ms)")+
+  xlim(-50,100)
+tmaxvel.large <- ggplot(data=large.data, aes(x=tmaxVEL ,group=Individual, fill=Individual)) +
+  geom_density(adjust=1.5, alpha=.4)+
+  theme_classic()+
+  ylab("Density")+
+  xlab("Timing of maximum velocity (ms)")+
+  xlim(-50,100)
+ggarrange(tmaxvel.small,tmaxvel.large,
+          labels = c("A", "B"),
+          ncol = 1, nrow = 2)
+
+
+accpg.small <- ggplot(data=small.data, aes(x=ACCPG ,group=Individual, fill=Individual)) +
+  geom_density(adjust=1.5, alpha=.4)+
+  theme_classic()+
+  ylab("Density")+
+  labs(x=bquote('Acceleration at peak gape'~(cm/s^2)))
+accpg.large <- ggplot(data=large.data, aes(x=ACCPG ,group=Individual, fill=Individual)) +
+  geom_density(adjust=1.5, alpha=.4)+
+  theme_classic()+
+  ylab("Density")+
+  labs(x=bquote('Acceleration at peak gape'~(cm/s^2)))
+ggarrange(accpg.small,accpg.large,
+          labels = c("A", "B"),
+          ncol = 1, nrow = 2)
+
+ratio.small <- ggplot(data=small.data, aes(x=H_L_ratio ,group=Individual, fill=Individual)) +
+  geom_density(adjust=1.5, alpha=.4)+
+  theme_classic()+
+  ylab("Density")+
+  xlab("Height:Length of volume")+
+  xlim(0.25,2)
+ratio.large <- ggplot(data=large.data, aes(x=H_L_ratio ,group=Individual, fill=Individual)) +
+  geom_density(adjust=1.5, alpha=.4)+
+  theme_classic()+
+  ylab("Density")+
+  xlab("Height:Length of volume")+
+  xlim(0.25,2)
+ggarrange(ratio.small,ratio.large,
+          labels = c("A", "B"),
+          ncol = 1, nrow = 2)
+
+
+ai.small <- ggplot(data=small.data, aes(x=AI ,group=Individual, fill=Individual)) +
+  geom_density(adjust=1.5, alpha=.4)+
+  theme_classic()+
+  ylab("Density")+
+  xlab("Accuracy Index")+
+  xlim(0,1)
+ai.large <- ggplot(data=large.data, aes(x=AI ,group=Individual, fill=Individual)) +
+  geom_density(adjust=1.5, alpha=.4)+
+  theme_classic()+
+  ylab("Density")+
+  xlab("Accuracy Index") +
+  xlim(0,1)
+ggarrange(ai.small,ai.large,
+          labels = c("A", "B"),
+          ncol = 1, nrow = 2)
+
+
+vol.small <- ggplot(data=small.data, aes(x=ingested_volume ,group=Individual, fill=Individual)) +
+  geom_density(adjust=1.5, alpha=.4)+
+  theme_classic()+
+  ylab("Density") +
+  labs(x=bquote('Ingested volume'~(cm^3)))+
+  xlim(0,50)
+vol.large <- ggplot(data=large.data, aes(x=ingested_volume ,group=Individual, fill=Individual)) +
+  geom_density(adjust=1.5, alpha=.4)+
+  theme_classic()+
+  ylab("Density") +
+  labs(x=bquote('Ingested volume'~(cm^3)))+
+  xlim(0,50)
+ggarrange(vol.small,vol.large,
+          labels = c("A", "B"),
+          ncol = 1, nrow = 2)
+
+
+ppd.small <- ggplot(data=small.data, aes(x=PPDiopen ,group=Individual, fill=Individual)) +
+  geom_density(adjust=1.5, alpha=.4)+
+  theme_classic()+
+  ylab("Density") +
+  xlab("Predator-prey distance at mouth opening (cm)")+
+  xlim(0,3)
+ppd.large <- ggplot(data=large.data, aes(x=PPDiopen ,group=Individual, fill=Individual)) +
+  geom_density(adjust=1.5, alpha=.4)+
+  theme_classic()+
+  ylab("Density") +
+  xlab("Predator-prey distance at mouth opening (cm)")+
+  xlim(0,3)
+ggarrange(ppd.small,ppd.large,
+          labels = c("A", "B"),
+          ncol = 1, nrow = 2)
+
+
+time.small <- ggplot(data=small.data, aes(x=timeatcapture ,group=Individual, fill=Individual)) +
+  geom_density(adjust=1.5, alpha=.4)+
+  theme_classic()+
+  ylab("Density") +
+  xlab("Time at capture relative to peak gape (ms)")+
+  xlim(-30,60)
+time.large <- ggplot(data=large.data, aes(x=timeatcapture ,group=Individual, fill=Individual)) +
+  geom_density(adjust=1.5, alpha=.4)+
+  theme_classic()+
+  ylab("Density") +
+  xlab("Time at capture relative to peak gape (ms)")+
+  xlim(-30,60)
+ggarrange(time.small,time.large,
+          labels = c("A", "B"),
+          ncol = 1, nrow = 2)
+
+
+velcap.small <- ggplot(data=small.data, aes(x=VELpreycapture ,group=Individual, fill=Individual)) +
+  geom_density(adjust=1.5, alpha=.4)+
+  theme_classic()+
+  ylab("Density") +
+  xlab("Velocity at prey capture (cm/s)")+
+  xlim(0,100)
+velcap.large <- ggplot(data=large.data, aes(x=VELpreycapture ,group=Individual, fill=Individual)) +
+  geom_density(adjust=1.5, alpha=.4)+
+  theme_classic()+
+  ylab("Density") +
+  xlab("Velocity at prey capture (cm/s)")+
+  xlim(0,100)
+ggarrange(velcap.small,velcap.large,
+          labels = c("A", "B"),
+          ncol = 1, nrow = 2)
+
+## One way ANOVA for each kinematic variable. Individuals will be treated as groups ----
+# In output, Individuals are first, then Residuals 
+# Function to run the anova and extract the results in a data frame 
+ResANOVA <- function(Y,Grouping){
+  mod <- aov(Y~Grouping)
+  mod.sum <- anova(mod)
+  data.frame(mod.sum$Df,mod.sum$'Sum Sq',mod.sum$'Mean Sq', mod.sum$'F value',mod.sum$'Pr(>F)')
+  
+} 
+
+
+# Small mouth data 
+pg.aov.small <- ResANOVA(small.data$PG,small.data$Individual)
+tto.aov.small <- ResANOVA(small.data$TTO,small.data$Individual)
+ttc.aov.small <- ResANOVA(small.data$TTC,small.data$Individual)
+pprot.aov.small <- ResANOVA(small.data$PPROT,small.data$Individual)
+pprotvel.aov.small <- ResANOVA(small.data$PPROTVEL,small.data$Individual)
+tpprot.aov.small <- ResANOVA(small.data$tPPROT,small.data$Individual)
+velpg.aov.small <- ResANOVA(small.data$VELPG,small.data$Individual)
+maxvel.aov.small <- ResANOVA(small.data$maxVEL,small.data$Individual)
+tmaxvel.aov.small <- ResANOVA(small.data$tmaxVEL,small.data$Individual)
+accpg.aov.small <- ResANOVA(small.data$ACCPG,small.data$Individual)
+ratio.aov.small <- ResANOVA(small.data$H_L_ratio,small.data$Individual)
+vol.aov.small <- ResANOVA(small.data$ingested_volume,small.data$Individual)
+ppd.aov.small <- ResANOVA(small.data$PPDiopen,small.data$Individual)
+time.aov.small <- ResANOVA(small.data$timeatcapture,small.data$Individual)
+
+# Large mouth data 
+pg.aov.large <- ResANOVA(large.data$PG,large.data$Individual)
+tto.aov.large <- ResANOVA(large.data$TTO,large.data$Individual)
+ttc.aov.large <- ResANOVA(large.data$TTC,large.data$Individual)
+pprot.aov.large <- ResANOVA(large.data$PPROT,large.data$Individual)
+pprotvel.aov.large <- ResANOVA(large.data$PPROTVEL,large.data$Individual)
+tpprot.aov.large <- ResANOVA(large.data$tPPROT,large.data$Individual)
+velpg.aov.large <- ResANOVA(large.data$VELPG,large.data$Individual)
+maxvel.aov.large <- ResANOVA(large.data$maxVEL,large.data$Individual)
+tmaxvel.aov.large <- ResANOVA(large.data$tmaxVEL,large.data$Individual)
+accpg.aov.large <- ResANOVA(large.data$ACCPG,large.data$Individual)
+ratio.aov.large <- ResANOVA(large.data$H_L_ratio,large.data$Individual)
+vol.aov.large <- ResANOVA(large.data$ingested_volume,large.data$Individual)
+ppd.aov.large <- ResANOVA(large.data$PPDiopen,large.data$Individual)
+time.aov.large <- ResANOVA(large.data$timeatcapture,large.data$Individual)
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Large mouth data 
