@@ -22,7 +22,6 @@ library(lmerTest)
 library(reshape2)
 library(rptR)
 library(ggridges)
-library(irr)
 library(ICC)
 
 # Load in data 
@@ -34,6 +33,10 @@ all.data <- data %>%
   dplyr::select(Individual,SL,PG,TTO,TTC,PPROT,PPROTVEL,tPPROT,VELPG,maxVEL,tmaxVEL,ACCPG,H_L_ratio,AI,ingested_volume,PPDiopen,timeatcapture,VELpreycapture)%>%
   group_by(Individual)%>%
   convert_as_factor(Individual)
+
+# Pull in small data and large data datasets 
+small.data <- read.csv("SmallMouth_Redbreast2022.csv")
+large.data <- read.csv("LargeMouth_Redbreast2022.csv")
 
 # intraclass correlation ----
 # In this case, we will use the ICC to investigate the variability of kinematics within an individual in the context of variation across all individuals 
