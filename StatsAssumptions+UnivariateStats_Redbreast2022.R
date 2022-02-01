@@ -28,7 +28,7 @@ small <- read.csv("SmallMouth_Redbreast2022.csv")
 large <- read.csv("LargeMouth_Redbreast2022.csv")
 
 # Make sure data is grouped by individual 
-smsmall.data <- small %>%
+small.data <- small %>%
   group_by(Individual)%>%
   convert_as_factor(Individual)
 
@@ -37,7 +37,7 @@ large.data <- large %>%
   convert_as_factor(Individual)
 
 #Get group means and sd for each individual ----
-means.small <- smsmall.data %>%
+means.small <- small.data %>%
   get_summary_stats()
 
 means.large <- large.data %>%
@@ -444,17 +444,23 @@ leveneTest(large.data$VELpreycapture~large.data$Individual) # 0.009
 
 ## Visualize data by strategy by individual:: HISTOGRAM
 pg.small <- ggplot(data=small.data, aes(x=PG ,group=Individual, fill=Individual)) +
+  scale_fill_brewer(palette="Dark2")+
   geom_density(adjust=1.5, alpha=.4)+
   theme_classic()+
   ylab("Density")+
   xlab("Peak gape (cm)") +
-  xlim(0,1.75)
+  xlim(0,1.75)+
+  theme(axis.title.x = element_text(face="bold"),
+        axis.title.y = element_text(face="bold"))
 pg.large <- ggplot(data=large.data, aes(x=PG ,group=Individual, fill=Individual)) +
+  scale_fill_brewer(palette="Dark2")+
   geom_density(adjust=1.5, alpha=.4)+
   theme_classic()+
   ylab("Density")+
   xlab("Peak gape (cm)") +
-  xlim(0,1.75)
+  xlim(0,1.75)+
+  theme(axis.title.x = element_text(face="bold"),
+        axis.title.y = element_text(face="bold"))
 ggarrange(pg.small,pg.large,
           labels = c("A", "B"),
           ncol = 1, nrow = 2)
@@ -718,6 +724,7 @@ ResANOVA <- function(Y,Grouping){
 } 
 
 
+
 # Small mouth data 
 pg.aov.small <- ResANOVA(small.data$PG,small.data$Individual)
 tto.aov.small <- ResANOVA(small.data$TTO,small.data$Individual)
@@ -734,6 +741,8 @@ vol.aov.small <- ResANOVA(small.data$ingested_volume,small.data$Individual)
 ppd.aov.small <- ResANOVA(small.data$PPDiopen,small.data$Individual)
 time.aov.small <- ResANOVA(small.data$timeatcapture,small.data$Individual)
 velcapture.aov.small <- ResANOVA(small.data$VELpreycapture,small.data$Individual)
+ai.aov.small <- ResANOVA(small.data$AI,small.data$Individual)
+
 
 # Large mouth data 
 pg.aov.large <- ResANOVA(large.data$PG,large.data$Individual)
@@ -751,10 +760,11 @@ vol.aov.large <- ResANOVA(large.data$ingested_volume,large.data$Individual)
 ppd.aov.large <- ResANOVA(large.data$PPDiopen,large.data$Individual)
 time.aov.large <- ResANOVA(large.data$timeatcapture,large.data$Individual)
 velcapture.aov.large <- ResANOVA(large.data$VELpreycapture,large.data$Individual)
+ai.aov.large <- ResANOVA(large.data$AI,large.data$Individual)
 
 # Write CSV files with results 
 small.aov <- data.frame(rbind(pg.aov.small,tto.aov.small,ttc.aov.small,pprot.aov.small,pprotvel.aov.small,tpprot.aov.small,velpg.aov.small,maxvel.aov.small,tmaxvel.aov.small,accpg.aov.small,ratio.aov.small,vol.aov.small,ppd.aov.small,
-                       time.aov.small,velcapture.aov.small))
+                       time.aov.small,velcapture.aov.small,ai.aov.small))
 small.aov$Stat.Designation <- rep(c("Individuals","Residuals"),length.out=30)
 colnames(small.aov) <- c("Df","SumSquares","MeanSumSquares","F.stat","p.value","Stat.Designation")
 
@@ -763,7 +773,7 @@ small.aov <- small.aov %>%
 
 
 large.aov <- data.frame(rbind(pg.aov.large,tto.aov.large,ttc.aov.large,pprot.aov.large,pprotvel.aov.large,tpprot.aov.large,velpg.aov.large,maxvel.aov.large,tmaxvel.aov.large,accpg.aov.large,ratio.aov.large,vol.aov.large,ppd.aov.large,
-                              time.aov.large,velcapture.aov.large))
+                              time.aov.large,velcapture.aov.large,ai.aov.large))
 large.aov$Stat.Designation <- rep(c("Individuals","Residuals"),length.out=30)
 colnames(large.aov) <- c("Df","SumSquares","MeanSumSquares","F.stat","p.value","Stat.Designation")
 
@@ -985,6 +995,19 @@ ggplot(all.data, aes(x=Strategy, y=timeatcapture)) +
         axis.title.y = element_text(face="bold"))+
   ylab("Timing of prey capture (ms)")+
   stat_compare_means(method = "t.test",label.y=90,label.x=2)
+
+ggplot(all.data, aes(x=Strategy, y=AI)) + 
+  geom_boxplot()+
+  geom_jitter(aes(color=Individual), size=2, alpha=0.9)+
+  theme_classic()+ 
+  ylim(0,1)+
+  scale_color_brewer(palette="Dark2")+
+  theme(axis.text.x=element_text(size=12),
+        axis.text.y=element_text(size=12),
+        axis.title.x = element_text(face="bold"),
+        axis.title.y = element_text(face="bold"))+
+  ylab("Accuracy Index")+
+  stat_compare_means(method = "t.test",label.y=1,label.x=2)
 
 
 # Run t-tests to compare kinematics used during small mouth and large mouth strategies 
