@@ -1030,5 +1030,6 @@ ratio.t <- ResTTest(all.data$H_L_ratio,all.data$Strategy)
 vol.t <- ResTTest(all.data$ingested_volume,all.data$Strategy)
 ppd.t <- ResTTest(all.data$PPDiopen,all.data$Strategy)
 time.t <- ResTTest(all.data$timeatcapture,all.data$Strategy)
+time.ai <- ResTTest(all.data$AI,all.data$Strategy)
 
 
