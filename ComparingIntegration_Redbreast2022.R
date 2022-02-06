@@ -16,12 +16,13 @@ library(rstatix)
 library(car)
 library(plyr)
 library(reshape2)
-library(lmer4)
+library(lme4)
 library(RColorBrewer)
 library(lmerTest)
 library(reshape2)
 library(rptR)
 library(ggridges)
+library(strucchange)
 
 # Load in data sets --- 
 small <- read.csv("SmallMouth_Redbreast2022.csv")
@@ -51,9 +52,9 @@ ggplot()+
         axis.title.y=element_text(face="bold"))
 
 # Linear Mixed Models  ----
-# Comapre the lines within individual by strategy 
+# Compare the lines within individual by strategy 
 
-mod.fish1 <- glm(all.data$PG_scaled_ind[all.data$Individual=="LAUR01"]~all.data$VELPG_scaled_ind[all.data$Individual=="LAUR01"] + all.data$Strategy[all.data$Individual=="LAUR01"])
+mod.fish1 <- glm(all.data$PG_scaled_ind[all.data$Individual=="LAUR01"]~all.data$VELPG_scaled_ind[all.data$Individual=="LAUR01"] + all.data$Strategy[all.data$Individual=="LAUR01"] + all.data$VELPG_scaled_ind[all.data$Individual=="LAUR01"]*all.data$Strategy[all.data$Individual=="LAUR01"])
 summary(mod.fish1)
 
 mod.fish2 <- glm(all.data$PG_scaled_ind[all.data$Individual=="LAUR02"]~all.data$VELPG_scaled_ind[all.data$Individual=="LAUR02"] + all.data$Strategy[all.data$Individual=="LAUR02"])
@@ -102,3 +103,39 @@ summary(large.mod.fish4)
 
 large.mod.fish5 <- lm(large$PG_scaled_ind[large$Individual=="LAUR05"]~large$VELPG_scaled_ind[large$Individual=="LAUR05"])
 summary(large.mod.fish5)
+
+## 
+
+# Across strategy- is there a difference? 
+# Linear mixed model with strategy as fixed effect and individual as random effect 
+
+small.all <- lmer(PG_scaled_ind~VELPG_scaled_ind  + (1|Individual),data=small)
+summary(small.all)
+
+large.all <- lmer(PG_scaled_ind~VELPG_scaled_ind  + (1|Individual),data=large)
+summary(large.all)
+
+
+
+## Linear Mixed Model for all possible interactions 
+# Make all possible models 
+
+full <- lmer(PG_scaled_ind~VELPG_scaled_ind + Strategy + Strategy*VELPG_scaled_ind + Individual*Strategy + Individual*VELPG_scaled_ind + Individual*Strategy*VELPG_scaled_ind + (1|Individual), data= all.data)
+summary(full)
+
+red1 <- lmer(PG_scaled_ind~VELPG_scaled_ind + Strategy + Strategy*VELPG_scaled_ind + Individual*Strategy + Individual*VELPG_scaled_ind  + (1|Individual), data= all.data)
+summary(red1)
+
+red2 <-  lmer(PG_scaled_ind~VELPG_scaled_ind + Strategy + Strategy*VELPG_scaled_ind + Individual*Strategy + (1|Individual), data= all.data)
+summary(red2)
+
+red3 <-  lmer(PG_scaled_ind~VELPG_scaled_ind + Strategy + Strategy*VELPG_scaled_ind  + (1|Individual), data= all.data)
+summary(red3)
+
+red4 <-  lmer(PG_scaled_ind~VELPG_scaled_ind + Strategy  + (1|Individual), data= all.data)
+summary(red4)
+
+red5 <-  lmer(PG_scaled_ind~VELPG_scaled_ind  + (1|Individual), data= all.data)
+summary(red5)
+
+mod.check <- anova(full,red1,red2,red3,red4,red5)
