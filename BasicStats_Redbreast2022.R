@@ -383,13 +383,14 @@ summary(velpreycapture)
 # Diagnostic plots ---- 
 
 # Use histogram overlaps 
-ggplot(data=all.data, aes(x=PG ,group=Individual, fill=Individual)) +
+ggplot(data=all.data, aes(x=PG ,group=Individual, fill=Individual))  +
+  scale_fill_brewer(palette="Dark2")+
   geom_density(adjust=1.5, alpha=.4)+
   theme_classic()+
   ylab("Density")+
   xlab("Peak gape (cm)") # use
 
-ggplot(data=all.data, aes(x=TTO ,group=Individual, fill=Individual)) +
+ggplot(data=all.data, aes(x=TTO ,group=Individual, fill=Individual))
   geom_density(adjust=1.5, alpha=.4)+
   theme_classic()+
   ylab("Density")+
