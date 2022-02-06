@@ -765,7 +765,7 @@ ai.aov.large <- ResANOVA(large.data$AI,large.data$Individual)
 # Write CSV files with results 
 small.aov <- data.frame(rbind(pg.aov.small,tto.aov.small,ttc.aov.small,pprot.aov.small,pprotvel.aov.small,tpprot.aov.small,velpg.aov.small,maxvel.aov.small,tmaxvel.aov.small,accpg.aov.small,ratio.aov.small,vol.aov.small,ppd.aov.small,
                        time.aov.small,velcapture.aov.small,ai.aov.small))
-small.aov$Stat.Designation <- rep(c("Individuals","Residuals"),length.out=30)
+small.aov$Stat.Designation <- rep(c("Individuals","Residuals"),length.out=32)
 colnames(small.aov) <- c("Df","SumSquares","MeanSumSquares","F.stat","p.value","Stat.Designation")
 
 small.aov <- small.aov %>%
@@ -774,7 +774,7 @@ small.aov <- small.aov %>%
 
 large.aov <- data.frame(rbind(pg.aov.large,tto.aov.large,ttc.aov.large,pprot.aov.large,pprotvel.aov.large,tpprot.aov.large,velpg.aov.large,maxvel.aov.large,tmaxvel.aov.large,accpg.aov.large,ratio.aov.large,vol.aov.large,ppd.aov.large,
                               time.aov.large,velcapture.aov.large,ai.aov.large))
-large.aov$Stat.Designation <- rep(c("Individuals","Residuals"),length.out=30)
+large.aov$Stat.Designation <- rep(c("Individuals","Residuals"),length.out=32)
 colnames(large.aov) <- c("Df","SumSquares","MeanSumSquares","F.stat","p.value","Stat.Designation")
 
 large.aov <- large.aov %>%
@@ -1030,6 +1030,15 @@ ratio.t <- ResTTest(all.data$H_L_ratio,all.data$Strategy)
 vol.t <- ResTTest(all.data$ingested_volume,all.data$Strategy)
 ppd.t <- ResTTest(all.data$PPDiopen,all.data$Strategy)
 time.t <- ResTTest(all.data$timeatcapture,all.data$Strategy)
-time.ai <- ResTTest(all.data$AI,all.data$Strategy)
+ai.t <- ResTTest(all.data$AI,all.data$Strategy)
 
+ttest <- data.frame(rbind(pg.t,tto.t,ttc.t,pprot.t,pprotvel.t,tpprot.t,velpg.t,maxvel.t,tmaxvel.t,accpg.t,ratio.t,vol.t,ppd.t,
+                              time.t,ai.t))
+ttest$variable <- c("PG","TTO","TTC","PPROT","PPROTVEL","tPPROT","VELPG",
+                    "maxVEL","tmaxVEL","ACCPG","H:L","volume","PPDiopen",
+                    "timeatcapture","AI")
 
+# Write to a csv file 
+#NOTE: Rows are doubled because of CI calculations. Variables will also be doubled. 
+  # Each variable technically gets two rows 
+write.csv(ttest,"Ttest_Redbreast2022.csv")
