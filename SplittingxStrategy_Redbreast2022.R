@@ -116,11 +116,15 @@ write.csv(large.all.data,file = "LargeMouth_Redbreast2022.csv")
 ggplot()+
   geom_point(large.mouth, mapping=aes(x=VELPG_scaled_ind,y=PG_scaled_ind,group=Individual,color=Individual,shape=Strategy))+
   geom_smooth(large.mouth,method = "lm",se=F,mapping=aes(x=VELPG_scaled_ind,y=PG_scaled_ind,group=Individual,color=Individual))+
+  scale_color_brewer(palette="Dark2")+
+  geom_hline(yintercept = -0.2,linetype=2)+
   geom_point(small.mouth, mapping=aes(x=VELPG_scaled_ind,y=PG_scaled_ind,group=Individual,color=Individual,shape=Strategy))+
   geom_smooth(small.mouth,method = "lm",se=F,mapping=aes(x=VELPG_scaled_ind,y=PG_scaled_ind,group=Individual,color=Individual))+
   theme_classic()+
-  xlab("Velocity at peak gape (cm/s)")+
-  ylab("Peak gape (cm)")
+  xlab("Scaled velocity at peak gape (cm/s)")+
+  ylab("Scaled peak gape (cm)")+ 
+  theme(axis.title.x=element_text(face="bold"),
+        axis.title.y=element_text(face="bold"))
 
 # Check distributions 
 ggplot(data=small.all.data, aes(x=PG ,group=Individual, fill=Individual)) +
