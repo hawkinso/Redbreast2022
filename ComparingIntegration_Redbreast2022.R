@@ -23,6 +23,12 @@ library(reshape2)
 library(rptR)
 library(ggridges)
 library(strucchange)
+library(effects)
+library(sjmisc)
+library(sjstats)
+library(cowplot)
+library(sjPlot)
+
 
 # Load in data sets --- 
 small <- read.csv("SmallMouth_Redbreast2022.csv")
@@ -37,7 +43,7 @@ large.data <- large %>%
   group_by(Individual)%>%
   convert_as_factor(Individual)
 
-# Plot integration lines by indivdual using center and scaled data 
+# Plot integration lines by individual using center and scaled data 
 ggplot()+
   geom_point(large.mouth, mapping=aes(x=VELPG_scaled_ind,y=PG_scaled_ind,group=Individual,color=Individual,shape=Strategy))+
   geom_smooth(large.mouth,method = "lm",se=F,mapping=aes(x=VELPG_scaled_ind,y=PG_scaled_ind,group=Individual,color=Individual))+
@@ -49,26 +55,11 @@ ggplot()+
   xlab("Scaled velocity at peak gape (cm/s)")+
   ylab("Scaled peak gape (cm)")+ 
   theme(axis.title.x=element_text(face="bold"),
-        axis.title.y=element_text(face="bold"))
+        axis.title.y=element_text(face="bold"))+
+  
 
 # Linear Mixed Models  ----
 # Compare the lines within individual by strategy 
-
-mod.fish1 <- glm(all.data$PG_scaled_ind[all.data$Individual=="LAUR01"]~all.data$VELPG_scaled_ind[all.data$Individual=="LAUR01"] + all.data$Strategy[all.data$Individual=="LAUR01"] + all.data$VELPG_scaled_ind[all.data$Individual=="LAUR01"]*all.data$Strategy[all.data$Individual=="LAUR01"])
-summary(mod.fish1)
-
-mod.fish2 <- glm(all.data$PG_scaled_ind[all.data$Individual=="LAUR02"]~all.data$VELPG_scaled_ind[all.data$Individual=="LAUR02"] + all.data$Strategy[all.data$Individual=="LAUR02"])
-summary(mod.fish2)
-
-mod.fish3 <- glm(all.data$PG_scaled_ind[all.data$Individual=="LAUR03"]~all.data$VELPG_scaled_ind[all.data$Individual=="LAUR03"] + all.data$Strategy[all.data$Individual=="LAUR03"])
-summary(mod.fish3)
-
-mod.fish4 <- glm(all.data$PG_scaled_ind[all.data$Individual=="LAUR04"]~all.data$VELPG_scaled_ind[all.data$Individual=="LAUR04"] + all.data$Strategy[all.data$Individual=="LAUR04"])
-summary(mod.fish4)
-
-mod.fish5 <- glm(all.data$PG_scaled_ind[all.data$Individual=="LAUR05"]~all.data$VELPG_scaled_ind[all.data$Individual=="LAUR05"] + all.data$Strategy[all.data$Individual=="LAUR05"])
-summary(mod.fish5)
-
 # Get intercept and slopes for each individual line ----
 
 ## SMALL MOUTH 
@@ -104,6 +95,21 @@ summary(large.mod.fish4)
 large.mod.fish5 <- lm(large$PG_scaled_ind[large$Individual=="LAUR05"]~large$VELPG_scaled_ind[large$Individual=="LAUR05"])
 summary(large.mod.fish5)
 
+# Visualize differences within individual 
+ggplot()+
+  geom_point(large.mouth, mapping=aes(x=VELPG_scaled_ind,y=PG_scaled_ind,group=Individual,color=Individual,shape=Strategy))+
+  geom_smooth(large.mouth,method = "lm",se=F,mapping=aes(x=VELPG_scaled_ind,y=PG_scaled_ind,group=Individual,color=Individual))+
+  scale_color_brewer(palette="Dark2")+
+  geom_hline(yintercept = -0.2,linetype=2)+
+  geom_point(small.mouth, mapping=aes(x=VELPG_scaled_ind,y=PG_scaled_ind,group=Individual,color=Individual,shape=Strategy))+
+  geom_smooth(small.mouth,method = "lm",se=F,mapping=aes(x=VELPG_scaled_ind,y=PG_scaled_ind,group=Individual,color=Individual))+
+  theme_classic()+
+  xlab("Scaled velocity at peak gape (cm/s)")+
+  ylab("Scaled peak gape (cm)")+ 
+  theme(axis.title.x=element_text(face="bold"),
+        axis.title.y=element_text(face="bold"))+
+  facet_grid(~Individual)
+
 ## 
 
 # Across strategy- is there a difference? 
@@ -115,7 +121,19 @@ summary(small.all)
 large.all <- lmer(PG_scaled_ind~VELPG_scaled_ind  + (1|Individual),data=large)
 summary(large.all)
 
-
+ggplot()+
+  geom_point(large.mouth, mapping=aes(x=VELPG_scaled_ind,y=PG_scaled_ind,shape=Strategy,color=Individual))+
+  geom_smooth(large.mouth,method = "lm",se=F,mapping=aes(x=VELPG_scaled_ind,y=PG_scaled_ind))+
+  scale_color_brewer(palette="Dark2")+
+  geom_hline(yintercept = -0.2,linetype=2)+
+  geom_point(small.mouth, mapping=aes(x=VELPG_scaled_ind,y=PG_scaled_ind,shape=Strategy,color=Individual))+
+  geom_smooth(small.mouth,method = "lm",se=F,mapping=aes(x=VELPG_scaled_ind,y=PG_scaled_ind))+
+  theme_classic()+
+  xlab("Scaled velocity at peak gape (cm/s)")+
+  ylab("Scaled peak gape (cm)")+ 
+  theme(axis.title.x=element_text(face="bold"),
+        axis.title.y=element_text(face="bold"))
+ 
 
 ## Linear Mixed Model for all possible interactions 
 # Make all possible models 
@@ -139,3 +157,23 @@ red5 <-  lmer(PG_scaled_ind~VELPG_scaled_ind  + (1|Individual), data= all.data)
 summary(red5)
 
 mod.check <- anova(full,red1,red2,red3,red4,red5)
+plot(red2)
+
+# plot effect sizes for model 2
+plot_model(red2, 
+           axis.labels=c("VELPG", "Strategy", "Individual-LAUR02","Individual-LAUR03","Individual-LAUR04","Individual-LAUR05","VELPG*Strategy","Strategy*Individual-LAUR02","Strategy*Individual-LAUR03","Strategy*Individual-LAUR04","Strategy*Individual-LAUR05"),
+           show.values=TRUE, show.p=TRUE,
+           title="Effects of Strategy, Vecolity at peak gape, and Individual on Peak gape",value.size = ,dot.size = 2)+
+  theme_sjplot()+
+  scale_color_brewer(palette="Dark2")+
+  ylim(-3,3)
+
+# Get table with results 
+tab_model(red2)
+
+tab_model(red2, 
+          show.re.var= TRUE, 
+          pred.labels =c("(Intercept)","VELPG", "Strategy","Individual-LAUR02","Individual-LAUR03","Individual-LAUR04","Individual-LAUR05","VELPG*Strategy","Strategy*Individual-LAUR02","Strategy*Individual-LAUR03","Strategy*Individual-LAUR04","Strategy*Individual-LAUR05"),
+          dv.labels= "Effects of Strategy, Velocity at peak gape, and Individual on Peak gape")
+
+
