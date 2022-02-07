@@ -28,6 +28,7 @@ library(sjmisc)
 library(sjstats)
 library(cowplot)
 library(sjPlot)
+library(rcompanion)
 
 
 # Load in data sets --- 
@@ -138,26 +139,26 @@ ggplot()+
 ## Linear Mixed Model for all possible interactions 
 # Make all possible models 
 
-full <- lmer(PG_scaled_ind~VELPG_scaled_ind + Strategy + Strategy*VELPG_scaled_ind + Individual*Strategy + Individual*VELPG_scaled_ind + Individual*Strategy*VELPG_scaled_ind + (1|Individual), data= all.data)
+full <- glm(PG_scaled_ind~VELPG_scaled_ind + Strategy + Strategy*VELPG_scaled_ind + Individual*Strategy + Individual*VELPG_scaled_ind + Individual*Strategy*VELPG_scaled_ind, data= all.data)
 summary(full)
 
-red1 <- lmer(PG_scaled_ind~VELPG_scaled_ind + Strategy + Strategy*VELPG_scaled_ind + Individual*Strategy + Individual*VELPG_scaled_ind  + (1|Individual), data= all.data)
+red1 <- glm(PG_scaled_ind~VELPG_scaled_ind + Strategy + Strategy*VELPG_scaled_ind + Individual*Strategy + Individual*VELPG_scaled_ind  , data= all.data)
 summary(red1)
 
-red2 <-  lmer(PG_scaled_ind~VELPG_scaled_ind + Strategy + Strategy*VELPG_scaled_ind + Individual*Strategy + (1|Individual), data= all.data)
+red2 <-  glm(PG_scaled_ind~VELPG_scaled_ind + Strategy + Strategy*VELPG_scaled_ind + Individual*Strategy , data= all.data)
 summary(red2)
 
-red3 <-  lmer(PG_scaled_ind~VELPG_scaled_ind + Strategy + Strategy*VELPG_scaled_ind  + (1|Individual), data= all.data)
+red3 <-  glm(PG_scaled_ind~VELPG_scaled_ind + Strategy + Strategy*VELPG_scaled_ind  , data= all.data)
 summary(red3)
 
-red4 <-  lmer(PG_scaled_ind~VELPG_scaled_ind + Strategy  + (1|Individual), data= all.data)
+red4 <-  glm(PG_scaled_ind~VELPG_scaled_ind + Strategy  , data= all.data)
 summary(red4)
 
-red5 <-  lmer(PG_scaled_ind~VELPG_scaled_ind  + (1|Individual), data= all.data)
+red5 <-  glm(PG_scaled_ind~VELPG_scaled_ind  , data= all.data)
 summary(red5)
 
-mod.check <- anova(full,red1,red2,red3,red4,red5)
-plot(red2)
+mod.check <- compareGLM(full,red1,red2,red3,red4,red5)
+
 
 # plot effect sizes for model 2
 plot_model(red2, 
@@ -174,6 +175,6 @@ tab_model(red2)
 tab_model(red2, 
           show.re.var= TRUE, 
           pred.labels =c("(Intercept)","VELPG", "Strategy","Individual-LAUR02","Individual-LAUR03","Individual-LAUR04","Individual-LAUR05","VELPG*Strategy","Strategy*Individual-LAUR02","Strategy*Individual-LAUR03","Strategy*Individual-LAUR04","Strategy*Individual-LAUR05"),
-          dv.labels= "Effects of Strategy, Velocity at peak gape, and Individual on Peak gape")
+          dv.labels= "Effects of Strategy, Velocity at peak gape, and Individual on Integration")
 
 
