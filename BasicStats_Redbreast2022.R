@@ -947,3 +947,20 @@ ggplot(comp.out.small,aes(x=PC1,y=PC2,color=Individual,group=Individual)) +
   stat_ellipse()+
   ggtitle("Small gape strategy")
 
+# Morphology data ---- 
+measures <- read.csv("MorphologyMeasurements_Redbreast_2022_averaged.csv")
+
+data_merged <- merge(all.data, measures, by= "Individual")
+data_merged$Gape_prop <- data_merged$PG/data_merged$Gape_height
+
+ggplot(data=data_merged, aes(x=PG, y=Gape_prop ,colour=Individual, fill=Individual)) +
+  geom_point() +
+  theme_classic()+
+  xlab("Peak Gape")+
+  ylab("Proportion of Max Gape")
+
+ggplot(data=data_merged, aes(x=SL.y, y=Gape_height ,colour=Individual, fill=Individual)) +
+  geom_point() +
+  theme_classic()+
+  xlab("Standard Length")+
+  ylab("Max Anatomical Gape")
