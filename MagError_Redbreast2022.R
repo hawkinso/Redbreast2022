@@ -23,17 +23,36 @@ library(reshape2)
 library(rptR)
 library(ggridges)
 
+### Info about variables----
+# PG: 95% of peak gape when mouth is open (height) in cm 
+# TTO: Timing of mouth opening in relation to PG in ms 
+# TTC: Timing of mouth closing in relation to PG in ms 
+# PPROT: Peak protrusion (eye to anterior tip of upper jaw) in cm 
+# PPROTVEL: Speed of protrusion in cm/s
+# tPPROT: Timing of peak protusion in relation to peak gape in cm 
+# VELPG: velocity of the body at the time of peak gape in cm/s 
+# maxVEL: maximum velocity of the body through the digitized frames in cm/s
+# tmaxVEL: timing of maximum velocity in relation to peak gape in ms 
+# ACCPG: acceleration at the time of peak gape in cm/s^2 
+# H_L_ratio: height to length ratio of the ingested volume 
+# AI: accuracy index 
+# ingested_volume: volume of ingested water during suction feeding (cm^3) 
+# PPDiopen: predator prey distance at mouth opening in cm 
+# timeatcapture: timing of prey capture relative to peak gape in ms 
+# VELpreycapture: velocity of the body at the time of prey capture in cm/s
 
+# Read in data ----
 data <- read.csv("RedBreast_2021.csv")
 measures <- read.csv("MorphologyMeasurements_Redbreast_2022_averaged.csv")
 
+# Reformat data ----
 data_merged <- merge(data, measures, by= "Individual")
 data_merged$Gape_prop <- data_merged$PG/data_merged$Gape_height
 
 data_merged$SL_prop <- data_merged$SL.x/data_merged$SL.y
 data_merged$Strategy <- ifelse(data_merged$Gape_prop < 0.5, "Small mouth","Large mouth")
 
-
+# Plot ----
 ggplot(data=data_merged, aes(x=PG, y=Gape_prop ,colour=Individual, fill=Individual)) +
   geom_point() +
   scale_color_brewer(palette="Dark2")+
@@ -108,3 +127,5 @@ PG_comparison <- ggplot(data=data_merged, aes(x=SL.y, y=PG, group = Strategy, co
 
 plot_grid(SL_comparisons, VELPG_comparison, PG_comparison, align= "v",
           labels = "AUTO", ncol = 1, rel_heights = c(1,1,1))
+
+## Convert the rest of the variables to make a new data set to use for analysis that cancels out the magnification error 
