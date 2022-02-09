@@ -283,7 +283,7 @@ ICC_all <- read.csv("ICCResults_all_redbreast_2022.csv")
 
 ICC_comp <- read.csv("ICCResults_comparison_redbreast_2022.csv")
 
-#Plotting ICC + Uppe/Lower CI
+#Plotting ICC + Upper/Lower CI
 
 var_break <- c("PG", "TTO", "TTC", "PPROT", "PPROTVEL", "tPPROT", "VELPG", 
                "maxVEL", "tmaxVEL", "ACCPG", "timeatcapture", "H:L", 
@@ -316,6 +316,10 @@ ggplot(ICC_comp, aes(x=variable, y=ICC, group= Gape, color=Category))+
   geom_hline(yintercept = 0.7, linetype=2)+
   facet_grid(Gape~Category, scales="free_x") +
   theme_cowplot() +
-  theme(axis.text.x = element_text(angle = 45, hjust=1), legend.position= "None")
+  theme(axis.text.x = element_text(angle = 45, hjust=1), 
+        legend.position= "None")+
+  xlab("Variable")+
+  theme(axis.title.x=element_text(face="bold"),
+        axis.title.y = element_text(face="bold"))
 
 
