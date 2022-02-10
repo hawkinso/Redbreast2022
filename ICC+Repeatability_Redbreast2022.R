@@ -283,6 +283,8 @@ ICC_all <- read.csv("ICCResults_all_redbreast_2022.csv")
 
 ICC_comp <- read.csv("ICCResults_comparison_redbreast_2022.csv")
 
+ICC_comp$Category <- factor(ICC_comp$Category,levels =c("Feeding","Locomotion","Accuracy"))
+
 #Plotting ICC + Upper/Lower CI
 
 var_break <- c("PG", "TTO", "TTC", "PPROT", "PPROTVEL", "tPPROT", "VELPG", 

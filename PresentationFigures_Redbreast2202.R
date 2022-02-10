@@ -134,7 +134,8 @@ tpprot.plot <- ggplot()+
   theme(axis.title.x = element_text(face="bold"),
         axis.title.y = element_text(face="bold"),
         axis.text.x=element_text(size=14),
-        axis.text.y=element_text(size=14))+
+        axis.text.y=element_text(size=14),
+        legend.position = "none")+
   ylab("Timing of peak protrusion (ms)")+
   geom_hline(yintercept=0,linetype=2)
 
@@ -204,9 +205,10 @@ ggplot()+
   ylim(0.5,1.3)
 
 # Make combined feeding figure
-feed <- ggarrange(tto.plot,pprot.plot,pprotvel.plot,
+feed <- ggarrange(pprot.plot,pprotvel.plot,tpprot.plot,
           labels = c("A", "B","C"),
-          ncol = 3, nrow = 1)
+          ncol = 3, nrow = 1,
+          common.legend = FALSE)
 annotate_figure(feed, top = text_grob("Feeding", 
                                       color = "black", face = "bold", size = 20))
 
