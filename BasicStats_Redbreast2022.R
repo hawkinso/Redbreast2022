@@ -461,7 +461,8 @@ ggplot(data=all.data, aes(x=AI ,group=Individual, fill=Individual)) +
   geom_density(adjust=1.5, alpha=.4)+
   theme_classic()+
   ylab("Density")+
-  xlab("Accuracy Index") # use 
+  xlab("Accuracy Index")+
+  xlim(0,1)# use 
 
 
 ggplot(data=all.data, aes(x=ingested_volume ,group=Individual, fill=Individual)) +
@@ -964,3 +965,5 @@ ggplot(data=data_merged, aes(x=SL.y, y=Gape_height ,colour=Individual, fill=Indi
   theme_classic()+
   xlab("Standard Length")+
   ylab("Max Anatomical Gape")
+
+
