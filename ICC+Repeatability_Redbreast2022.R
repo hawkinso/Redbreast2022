@@ -52,7 +52,7 @@ tto<- data %>% select(Individual,TTO)
 ttc<- data %>% select(Individual,TTC)
 pprot<- data %>% select(Individual,PPROT)
 pprotvel<- data %>% select(Individual,PPROTVEL)
-tpprot<- data %>% select(Individual,tPPROT)
+tpprot <- data %>% select(Individual,tPPROT)
 velpg<- data %>% select(Individual,VELPG)
 maxvel<- data %>% select(Individual,maxVEL)
 tmaxvel<- data %>% select(Individual,tmaxVEL)
@@ -116,7 +116,7 @@ time.icc <- ICCResults(time$Individual, time$timeatcapture)
 velpc.icc <- ICCResults(velpc$Individual, velpc$VELpreycapture)
 
 
-#Creating DataFrames
+#Creating DataFrames 
 
 ICCResults_DF_all <- data.frame(rbind(pg.icc, tto.icc, ttc.icc, pprot.icc, 
                                       pprotvel.icc, tpprot.icc, velpg.icc, 
