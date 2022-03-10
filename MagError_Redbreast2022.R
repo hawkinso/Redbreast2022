@@ -42,7 +42,7 @@ library(ggridges)
 # VELpreycapture: velocity of the body at the time of prey capture in cm/s
 
 # Read in data ----
-data <- read.csv("RedBreast_2021.csv")
+data <- read.csv("Redbreast2022_FINAL.csv")
 measures <- read.csv("MorphologyMeasurements_Redbreast_2022_averaged.csv")
 
 # Reformat data ----
@@ -50,7 +50,6 @@ data_merged <- merge(data, measures, by= "Individual")
 data_merged$Gape_prop <- data_merged$PG/data_merged$Gape_height
 
 data_merged$SL_prop <- data_merged$SL.x/data_merged$SL.y
-data_merged$Strategy <- ifelse(data_merged$Gape_prop < 0.5, "Small mouth","Large mouth")
 
 # Plot ----
 ggplot(data=data_merged, aes(x=PG, y=Gape_prop ,colour=Individual, fill=Individual)) +
@@ -78,7 +77,7 @@ ggplot(data=data_merged, aes(x=SL.y, y=SL_prop ,colour=Individual, fill=Individu
 
 
 SL_comparisons <- ggplot(data=data_merged, aes(x=SL.y, y=SL.x ,colour=Individual, fill=Individual)) +
-  geom_point(size= 3) +
+  geom_point(size= 2) +
   geom_smooth(method=lm , color="black", size = 1.5, fill="#949494", se=TRUE)+
   geom_abline(intercept=0, slope=1, color= "black", linetype = "dashed", size= 1.5)+
   scale_color_brewer(palette="Dark2")+
@@ -87,7 +86,7 @@ SL_comparisons <- ggplot(data=data_merged, aes(x=SL.y, y=SL.x ,colour=Individual
   ylab("Video Standard Length (cm)")+
   theme_cowplot()+
   theme(
-    axis.title = element_text( color="black", size=13),
+    axis.title = element_text( color="black", size=12),
     axis.line = element_line(size = 1, colour = "black"),
     axis.text = element_text( color="black", size=10),
     axis.ticks.x = element_blank(),
@@ -95,7 +94,7 @@ SL_comparisons <- ggplot(data=data_merged, aes(x=SL.y, y=SL.x ,colour=Individual
     axis.text.x = element_blank())
 
 VELPG_comparison <- ggplot(data=data_merged, aes(x=SL.y, y=VELPG ,colour=Individual,  fill=Individual)) +
-  geom_point(size= 3) +
+  geom_point(size= 2) +
   geom_smooth(method=lm , color="black", size = 1.5, fill="#949494", se=TRUE)+
   geom_abline(intercept=0, slope=1, color= "black", linetype = "dashed", size= 1.5)+
   scale_color_brewer(palette="Dark2")+
@@ -104,15 +103,17 @@ VELPG_comparison <- ggplot(data=data_merged, aes(x=SL.y, y=VELPG ,colour=Individ
   ylab("Velocity at Peak Gape (cm/s)")+
   theme_cowplot()+
   theme(
-    axis.title = element_text( color="black", size=13),
+    axis.title = element_text( color="black", size=12),
     axis.line = element_line(size = 1, colour = "black"),
     axis.text = element_text( color="black", size=10),
     axis.ticks.x = element_blank(),
     axis.title.x = element_blank(),
-    axis.text.x = element_blank())
+    axis.text.x = element_blank(),
+    legend.title = element_text(face="bold"),
+    legend.text = element_text(size=12))
 
 PG_comparison <- ggplot(data=data_merged, aes(x=SL.y, y=PG, group = Strategy, colour=Individual, fill=Individual)) +
-  geom_point(size= 3) +
+  geom_point(size= 2) +
   geom_smooth(method=lm , color="black", size = 1.5, fill="#949494", se=TRUE)+
   geom_abline(intercept=0, slope=1, color= "black", linetype = "dashed", size= 1.5)+
   scale_color_brewer(palette="Dark2")+
@@ -121,11 +122,11 @@ PG_comparison <- ggplot(data=data_merged, aes(x=SL.y, y=PG, group = Strategy, co
   ylab("Video Peak Gape (cm)")+
   theme_cowplot()+
   theme(
-    axis.title = element_text( color="black", size=13),
+    axis.title = element_text( color="black", size=12),
     axis.line = element_line(size = 1, colour = "black"),
     axis.text = element_text( color="black", size=10))
 
 plot_grid(SL_comparisons, VELPG_comparison, PG_comparison, align= "v",
-          labels = "AUTO", ncol = 1, rel_heights = c(1,1,1))
+          labels = "AUTO", ncol = 1,rel_heights = c(1,1,1))
 
 ## Convert the rest of the variables to make a new data set to use for analysis that cancels out the magnification error 
