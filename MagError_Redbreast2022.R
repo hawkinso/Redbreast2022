@@ -51,6 +51,60 @@ data_merged$Gape_prop <- data_merged$PG/data_merged$Gape_height
 
 data_merged$SL_prop <- data_merged$SL.x/data_merged$SL.y
 
+## Make the cm corrections to all relevant data ----
+
+Redbreast_data_mag <- data.frame(matrix(, nrow=100, ncol=0))
+
+Redbreast_data_mag$Population <- data_merged$Population
+Redbreast_data_mag$Individual <- data_merged$Individual
+Redbreast_data_mag$Trialname <- data_merged$Trialname
+Redbreast_data_mag$cm_mag <- data_merged$cm_mag
+Redbreast_data_mag$SL <- data_merged$SL
+Redbreast_data_mag$PG <- data_merged$PG
+Redbreast_data_mag$SL_mag <- data_merged$SL/data_merged$cm_mag
+Redbreast_data_mag$PG_mag <- data_merged$PG/data_merged$cm_mag
+Redbreast_data_mag$PGVEL_mag <- data_merged$PGVEL
+Redbreast_data_mag$tPGVEL <- data_merged$tPGVEL
+Redbreast_data_mag$TTO <- data_merged$TTO
+Redbreast_data_mag$TTC <- data_merged$TTC
+Redbreast_data_mag$DUR_open <- data_merged$DUR_open
+Redbreast_data_mag$PPROT_mag <- data_merged$PPROT/data_merged$cm_mag
+Redbreast_data_mag$tPPROT <- data_merged$tPPROT
+Redbreast_data_mag$PPROTVEL_mag <- data_merged$PPROTVEL/data_merged$cm_mag
+Redbreast_data_mag$VELPG_mag <- data_merged$VELPG/data_merged$cm_mag
+Redbreast_data_mag$maxVEL_mag <- data_merged$maxVEL/data_merged$cm_mag
+Redbreast_data_mag$tmaxVEL <- data_merged$tmaxVEL
+Redbreast_data_mag$minVEL_mag <- data_merged$minVEL/data_merged$cm_mag
+Redbreast_data_mag$tminVEL <- data_merged$tminVEL
+Redbreast_data_mag$ACCPG_mag <- data_merged$ACCPG/data_merged$cm_mag
+Redbreast_data_mag$maxACC_mag <- data_merged$maxACC/data_merged$cm_mag
+Redbreast_data_mag$tmaxACC <- data_merged$tmaxACC
+Redbreast_data_mag$minACC_mag <- data_merged$minACC/data_merged$cm_mag
+Redbreast_data_mag$tminACC <- data_merged$tminACC
+Redbreast_data_mag$predicted_L <- data_merged$predicted_L
+Redbreast_data_mag$predicted_H <- data_merged$predicted_H
+Redbreast_data_mag$H_L_ratio <- data_merged$H_L_ratio
+Redbreast_data_mag$dp <- data_merged$dp
+Redbreast_data_mag$db <- data_merged$db
+Redbreast_data_mag$AI <- data_merged$AI
+Redbreast_data_mag$AIx <- data_merged$AIx
+Redbreast_data_mag$AIy <- data_merged$AIy
+Redbreast_data_mag$AIz <- data_merged$AIz
+Redbreast_data_mag$ingested_volume_mag <- data_merged$ingested_volume/data_merged$cm_mag^3
+Redbreast_data_mag$ipreycapture <- data_merged$ipreycapture
+Redbreast_data_mag$iPG <- data_merged$iPG
+Redbreast_data_mag$PPDiopen_mag <- data_merged$PPDiopen/data_merged$cm_mag
+Redbreast_data_mag$PPDiPG_mag <- data_merged$PPDiPG/data_merged$cm_mag
+Redbreast_data_mag$PPDipreycapture_mag <- data_merged$PPDipreycapture/data_merged$cm_mag
+Redbreast_data_mag$timeatcapture <- data_merged$timeatcapture
+Redbreast_data_mag$VELpreycapture_mag <- data_merged$VELpreycapture/data_merged$cm_mag
+Redbreast_data_mag$SL_measured <- data_merged$SL_measured
+Redbreast_data_mag$Gape_height <- data_merged$Gape_height
+Redbreast_data_mag$Gape_prop <- Redbreast_data_mag$PG_mag/data_merged$Gape_height
+
+# Write as csv 
+read.csv(Redbreast_data_mag, "Redbreast2022_MAG.csv")
+
 # Plot ----
 ggplot(data=data_merged, aes(x=PG, y=Gape_prop ,colour=Individual, fill=Individual)) +
   geom_point() +
