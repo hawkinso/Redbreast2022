@@ -264,54 +264,53 @@ ggqqplot(all.data$SL) # looks ok
 
 # General linear mixed model 
 # Some variables are influenced by size... we will need to scale variables by standard length
-PGmod.SL <- lmer(PG~SL+(1|Individual),data=all.data)
-summary(PGmod.SL) # p < 0.0001
+PGmod.SL <- lmer(PG_mag~SL_mag+(1|Individual),data=all.data)
+summary(PGmod.SL) 
 
-TTOmod.SL <- lmer(TTO~SL+(1|Individual),data=all.data)
-summary(TTOmod.SL) # p =0.02
+TTOmod.SL <- lmer(TTO~SL_mag+(1|Individual),data=all.data)
+summary(TTOmod.SL) 
 
-TTCmod.SL <- lmer(TTC~SL+(1|Individual),data=all.data)
-summary(TTCmod.SL) # 0.82
+TTCmod.SL <- lmer(TTC~SL_mag+(1|Individual),data=all.data)
+summary(TTCmod.SL) 
 
-PPROTmod.SL <- lmer(PPROT~SL+(1|Individual),data=all.data)
-summary(PPROTmod.SL)  # p = 0.004
+PPROTmod.SL <- lmer(PPROT_mag~SL_mag+(1|Individual),data=all.data)
+summary(PPROTmod.SL)  # p = 0.04
 
+PPROTVELmod.SL <- lmer(PPROTVEL_mag~SL_mag+(1|Individual),data=all.data)
+summary(PPROTVELmod.SL) 
 
-PPROTVELmod.SL <- lmer(PPROTVEL~SL+(1|Individual),data=all.data)
-summary(PPROTVELmod.SL) # p =0.02
+tPPROTmod.SL <- lmer(tPPROT~SL_mag+(1|Individual),data=all.data)
+summary(tPPROTmod.SL)
 
-tPPROTmod.SL <- lmer(tPPROT~SL+(1|Individual),data=all.data)
-summary(tPPROTmod.SL) # p = 0.77
+VELPGmod.SL <- lmer(VELPG_mag~SL_mag+(1|Individual),data=all.data)
+summary(VELPGmod.SL) 
 
-VELPGmod.SL <- lmer(VELPG~SL+(1|Individual),data=all.data)
-summary(VELPGmod.SL) # = 0.006
+maxVELmod.SL <- lmer(maxVEL_mag~SL_mag+(1|Individual),data=all.data)
+summary(maxVELmod.SL) 
 
-maxVELmod.SL <- lmer(maxVEL~SL+(1|Individual),data=all.data)
-summary(maxVELmod.SL) # p = 0.01
+tmaxVELmod.SL <- lmer(tmaxVEL~SL_mag+(1|Individual),data=all.data)
+summary(tmaxVELmod.SL) 
 
-tmaxVELmod.SL <- lmer(tmaxVEL~SL+(1|Individual),data=all.data)
-summary(tmaxVELmod.SL) # p = 0.18
+ACCPGmod.SL <- lmer(ACCPG_mag~SL_mag+(1|Individual),data=all.data)
+summary(ACCPGmod.SL) 
 
-ACCPGmod.SL <- lmer(ACCPG~SL+(1|Individual),data=all.data)
-summary(ACCPGmod.SL) # p = 0.61
+HLmod.SL <- lmer(H_L_ratio~SL_mag+(1|Individual),data=all.data)
+summary(HLmod.SL) 
 
-HLmod.SL <- lmer(H_L_ratio~SL+(1|Individual),data=all.data)
-summary(HLmod.SL) # p = 0.16
+AImod.SL <- lmer(AI~SL_mag+(1|Individual),data=all.data)
+summary(AImod.SL) 
 
-AImod.SL <- lmer(AI~SL+(1|Individual),data=all.data)
-summary(AImod.SL) # p = 0.7
+ingestedmod.SL <- lmer(ingested_volume_mag~SL_mag+(1|Individual),data=all.data)
+summary(ingestedmod.SL) 
 
-ingestedmod.SL <- lmer(ingested_volume~SL+(1|Individual),data=all.data)
-summary(ingestedmod.SL) # p < 0.001
+PPDiopenmod.SL <- lmer(PPDiopen_mag~SL_mag+(1|Individual),data=all.data)
+summary(PPDiopenmod.SL) 
 
-PPDiopenmod.SL <- lmer(PPDiopen~SL+(1|Individual),data=all.data)
-summary(PPDiopenmod.SL) # p = 0.13
+timeatcapturemod.SL <- lmer(timeatcapture~SL_mag+(1|Individual),data=all.data)
+summary(timeatcapturemod.SL)
 
-timeatcapturemod.SL <- lmer(timeatcapture~SL+(1|Individual),data=all.data)
-summary(timeatcapturemod.SL) # p = 0.8
-
-VELpreycapturemod.SL <- lmer(VELpreycapture~SL+(1|Individual),data=all.data)
-summary(VELpreycapturemod.SL) # p = 0.002
+VELpreycapturemod.SL <- lmer(VELpreycapture_mag~SL_mag+(1|Individual),data=all.data)
+summary(VELpreycapturemod.SL)
 
 # Diagnostic plots ---- 
 
@@ -448,22 +447,22 @@ CoVar <- function(mean,sd){
 }
 
 # use data frame 'means' to supply the mean and sd 
-PG <- CoVar(mean = means$mean[means$variable=="PG"],sd=means$sd[means$variable=="PG"])
+PG <- CoVar(mean = means$mean[means$variable=="PG_mag"],sd=means$sd[means$variable=="PG_mag"])
 TTO <- CoVar(mean = means$mean[means$variable=="TTO"],sd=means$sd[means$variable=="TTO"])
 TTC <- CoVar(mean = means$mean[means$variable=="TTC"],sd=means$sd[means$variable=="TTC"])
-PPROT <- CoVar(mean = means$mean[means$variable=="PPROT"],sd=means$sd[means$variable=="PPROT"])
-PPROTVEL <- CoVar(mean = means$mean[means$variable=="PPROTVEL"],sd=means$sd[means$variable=="PPROTVEL"])
+PPROT <- CoVar(mean = means$mean[means$variable=="PPROT_mag"],sd=means$sd[means$variable=="PPROT_mag"])
+PPROTVEL <- CoVar(mean = means$mean[means$variable=="PPROTVEL_mag"],sd=means$sd[means$variable=="PPROTVEL_mag"])
 tPPROT <- CoVar(mean = means$mean[means$variable=="tPPROT"],sd=means$sd[means$variable=="tPPROT"])
-VELPG <- CoVar(mean = means$mean[means$variable=="VELPG"],sd=means$sd[means$variable=="VELPG"])
-maxVEL <- CoVar(mean = means$mean[means$variable=="maxVEL"],sd=means$sd[means$variable=="maxVEL"])
+VELPG <- CoVar(mean = means$mean[means$variable=="VELPG_mag"],sd=means$sd[means$variable=="VELPG_mag"])
+maxVEL <- CoVar(mean = means$mean[means$variable=="maxVEL_mag"],sd=means$sd[means$variable=="maxVEL_mag"])
 tmaxVEL <- CoVar(mean = means$mean[means$variable=="tmaxVEL"],sd=means$sd[means$variable=="tmaxVEL"])
-ACCPG <- CoVar(mean = means$mean[means$variable=="ACCPG"],sd=means$sd[means$variable=="ACCPG"])
+ACCPG <- CoVar(mean = means$mean[means$variable=="ACCPG_mag"],sd=means$sd[means$variable=="ACCPG_mag"])
 H_L_ratio <- CoVar(mean = means$mean[means$variable=="H_L_ratio"],sd=means$sd[means$variable=="H_L_ratio"])
 AI <- CoVar(mean = means$mean[means$variable=="AI"],sd=means$sd[means$variable=="AI"])
-ingested_volume <- CoVar(mean = means$mean[means$variable=="ingested_volume"],sd=means$sd[means$variable=="ingested_volume"])
-PPDiopen <- CoVar(mean = means$mean[means$variable=="PPDiopen"],sd=means$sd[means$variable=="PPDiopen"])
+ingested_volume <- CoVar(mean = means$mean[means$variable=="ingested_volume_mag"],sd=means$sd[means$variable=="ingested_volume_mag"])
+PPDiopen <- CoVar(mean = means$mean[means$variable=="PPDiopen_mag"],sd=means$sd[means$variable=="PPDiopen_mag"])
 timeatcapture <- CoVar(mean = means$mean[means$variable=="timeatcapture"],sd=means$sd[means$variable=="timeatcapture"])
-VELpreycapture <- CoVar(mean = means$mean[means$variable=="VELpreycapture"],sd=means$sd[means$variable=="VELpreycapture"])
+VELpreycapture <- CoVar(mean = means$mean[means$variable=="VELpreycapture_mag"],sd=means$sd[means$variable=="VELpreycapture_mag"])
 
 # Merge into a dataframe
 CV <- data.frame(rbind(PG,TTO,TTC,PPROT,PPROTVEL,tPPROT,VELPG,maxVEL,tmaxVEL,ACCPG,H_L_ratio,AI,ingested_volume,PPDiopen,timeatcapture,VELpreycapture))
@@ -485,18 +484,18 @@ names(CV_melt)[2] <- "Individual"
 names(CV_melt)[3] <- "CV"
 
 # Export data 
-write_csv(CV_melt,file = "Redbreast_CV_2021.csv",append = TRUE)
+write_csv(CV_melt,file = "Redbreast_CV_2022.csv",append = TRUE)
 
 
 # Taking a look at integration ---- 
 # Remind ourselves of the density plots 
-ggplot(data=all.data, aes(x=PG ,group=Individual, fill=Individual)) +
+ggplot(data=all.data, aes(x=PG_mag ,group=Individual, fill=Individual)) +
   geom_density(adjust=1.5, alpha=.4)+
   theme_classic()+
   ylab("Density")+
   xlab("Peak gape (cm)")
 
-ggplot(data=all.data, aes(x=VELPG ,group=Individual, fill=Individual)) +
+ggplot(data=all.data, aes(x=VELPG_mag ,group=Individual, fill=Individual)) +
   geom_density(adjust=1.5, alpha=.4)+
   theme_classic()+
   ylab("Density")+
@@ -516,39 +515,39 @@ ggplot(data=all.data, aes(x=AI ,group=Individual, fill=Individual)) +
 # center and scale by body size BY INDIVIDUAL 
 # subset by fish 
 fish.1.scale <- all.data %>%
-  select(Individual,PG,VELPG)%>%
+  select(Individual,PG_mag,VELPG_mag)%>%
   filter(Individual=="LAUR01")
 
-fish.1.scale$PG_scale_ind <- scale(fish.1.scale$PG,center = T,scale = T)
-fish.1.scale$VELPG_scale_ind <- scale(fish.1.scale$VELPG,center = T,scale = T)
+fish.1.scale$PG_scale_ind <- scale(fish.1.scale$PG_mag,center = T,scale = T)
+fish.1.scale$VELPG_scale_ind <- scale(fish.1.scale$VELPG_mag,center = T,scale = T)
 
 fish.2.scale <- all.data %>%
-  select(Individual,PG,VELPG,)%>%
+  select(Individual,PG_mag,VELPG_mag,)%>%
   filter(Individual=="LAUR02")
 
-fish.2.scale$PG_scale_ind <- scale(fish.2.scale$PG,center = T,scale = T)
-fish.2.scale$VELPG_scale_ind <- scale(fish.2.scale$VELPG,center = T,scale = T)
+fish.2.scale$PG_scale_ind <- scale(fish.2.scale$PG_mag,center = T,scale = T)
+fish.2.scale$VELPG_scale_ind <- scale(fish.2.scale$VELPG_mag,center = T,scale = T)
 
 fish.3.scale <- all.data %>%
-  select(Individual,PG,VELPG,)%>%
+  select(Individual,PG_mag,VELPG_mag,)%>%
   filter(Individual=="LAUR03")
 
-fish.3.scale$PG_scale_ind <- scale(fish.3.scale$PG,center = T,scale = T)
-fish.3.scale$VELPG_scale_ind <- scale(fish.3.scale$VELPG,center = T,scale = T)
+fish.3.scale$PG_scale_ind <- scale(fish.3.scale$PG_mag,center = T,scale = T)
+fish.3.scale$VELPG_scale_ind <- scale(fish.3.scale$VELPG_mag,center = T,scale = T)
 
 fish.4.scale <- all.data %>%
-  select(Individual,PG,VELPG,)%>%
+  select(Individual,PG_mag,VELPG_mag,)%>%
   filter(Individual=="LAUR04")
 
-fish.4.scale$PG_scale_ind <- scale(fish.4.scale$PG,center = T,scale = T)
-fish.4.scale$VELPG_scale_ind <- scale(fish.4.scale$VELPG,center = T,scale = T)
+fish.4.scale$PG_scale_ind <- scale(fish.4.scale$PG_mag,center = T,scale = T)
+fish.4.scale$VELPG_scale_ind <- scale(fish.4.scale$VELPG_mag,center = T,scale = T)
 
 fish.5.scale <- all.data %>%
-  select(Individual,PG,VELPG,)%>%
+  select(Individual,PG_mag,VELPG_mag,)%>%
   filter(Individual=="LAUR05")
 
-fish.5.scale$PG_scale_ind <- scale(fish.5.scale$PG,center = T,scale = T)
-fish.5.scale$VELPG_scale_ind <- scale(fish.5.scale$VELPG,center = T,scale = T)
+fish.5.scale$PG_scale_ind <- scale(fish.5.scale$PG_mag,center = T,scale = T)
+fish.5.scale$VELPG_scale_ind <- scale(fish.5.scale$VELPG_mag,center = T,scale = T)
 
 # Make data frame 
 all.data.ind <- data.frame(rbind(fish.1.scale,fish.2.scale,fish.3.scale,fish.4.scale,fish.5.scale))
@@ -692,13 +691,19 @@ measures <- read.csv("MorphologyMeasurements_Redbreast_2022_averaged.csv")
 data_merged <- merge(all.data, measures, by= "Individual")
 data_merged$Gape_prop <- data_merged$PG/data_merged$Gape_height
 
-ggplot(data=data_merged, aes(x=PG, y=Gape_prop ,colour=Individual, fill=Individual)) +
+ggplot(data=data, aes(x=PG_mag, y=Gape_prop ,colour=Individual, fill=Individual)) +
   geom_point() +
   theme_classic()+
   xlab("Peak Gape")+
-  ylab("Proportion of Max Gape")
+  ylab("Proportion of Max Gape")+
+  theme(axis.title.x = element_text(face="bold",size=12),
+        axis.title.y = element_text(face="bold",size=12),
+        legend.position = "top",
+        legend.title = element_text(face="bold",size=12),
+        legend.box.background = element_rect(color = "black"),
+        legend.box.margin = margin(t = 1, l = 1))
 
-ggplot(data=data_merged, aes(x=SL.y, y=Gape_height ,colour=Individual, fill=Individual)) +
+ggplot(data=data, aes(x=SL_measured, y=Gape_height ,colour=Individual, fill=Individual)) +
   geom_point() +
   theme_classic()+
   xlab("Standard Length")+
