@@ -1,2 +1,2 @@
 # Redbreast2022
-Understanding plasticity in integration during prey capture
+Many biomechanics studies focus on interspecific variation rather than intraspecific variation, and often are limited to interspecies comparisons due to low sample sizes per individual within a species. In this study, we are specifically interested in understanding the impact of intraspecific variation on feeding and swimming kinematics during prey capture and the resulting integration between the two systems. 
