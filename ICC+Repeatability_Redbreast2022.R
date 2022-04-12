@@ -26,7 +26,7 @@ library(ICC)
 library(cowplot)
 
 # Load in data 
-data <- read.csv("Redbreast2022_FINAL.csv")
+data <- read.csv("Redbreast2022_MAG.csv")
 
 # Subset data that will be used in analysis ----
 # Individual
@@ -153,7 +153,7 @@ ggplot(ICC_all, aes(x=variable, y=mod.ICC, color=Category))+
   geom_point(aes(size=2))+
   scale_color_manual(values=park_palettes$Everglades)+
   geom_errorbar(aes(ymin=mod.LowerCI, ymax=mod.UpperCI), width=0.5, size=1)+
-  geom_hline(yintercept = 0.7, linetype=2)+
+  geom_hline(yintercept = 0.75, linetype=2)+
   facet_grid(~Category, scales="free_x") +
   theme_cowplot() +
   theme(axis.text.x = element_text(angle = 45, hjust=1), 
