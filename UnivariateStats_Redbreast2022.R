@@ -6,6 +6,9 @@
 # Git hub repository 
 browseURL("https://github.com/hawkinso/Redbreast2022.git")
 
+# Load in data 
+data <- read.csv("Redbreast2022_MAG.csv")
+
 # Load in libraries ----
 library(ggpubr)
 library(ggplot2)
