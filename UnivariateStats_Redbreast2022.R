@@ -44,6 +44,7 @@ ResANOVA <- function(Y,Grouping){
 
 # ANOVA across individuals 
 pg.aov <- ResANOVA(all.data$PG_mag,all.data$Individual)
+gprop.aov <- ResANOVA(all.data$Gape_prop,all.data$Individual)
 tto.aov <- ResANOVA(all.data$TTO,all.data$Individual)
 ttc.aov <- ResANOVA(all.data$TTC,all.data$Individual)
 pprot.aov <- ResANOVA(all.data$PPROT_mag,all.data$Individual)
