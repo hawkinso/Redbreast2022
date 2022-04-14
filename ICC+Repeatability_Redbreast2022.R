@@ -48,6 +48,7 @@ all.data <- data %>%
     # ONE: Subset the data to where it only has the kinematic variable and Individuals
 
 pg<- data %>% select(Individual,PG_mag)
+gprop <- data %>% select(Individual,Gape_prop)
 tto<- data %>% select(Individual,TTO)
 ttc<- data %>% select(Individual,TTC)
 pprot<- data %>% select(Individual,PPROT_mag)
@@ -73,6 +74,7 @@ velpc<- data %>% select(Individual,VELpreycapture_mag)
 # CI.type : THD for unbalanced design
 
 pg.icc <- ICCest(Individual, PG_mag, data = pg, alpha = 0.05, CI.type = c("Smith"))
+gprop.icc <- ICCest(Individual, Gape_prop, data = gprop, alpha = 0.05, CI.type = c("Smith"))
 tto.icc <- ICCest(Individual, TTO, data = tto, alpha = 0.05, CI.type = c("Smith"))
 ttc.icc <- ICCest(Individual, TTC, data = ttc, alpha = 0.05, CI.type = c("Smith"))
 pprot.icc <- ICCest(Individual, PPROT_mag, data = pprot, alpha = 0.05, CI.type = c("Smith"))
@@ -99,6 +101,7 @@ ICCResults <- function(Grouping, var){
 }
 
 pg.icc <- ICCResults(pg$Individual, pg$PG_mag)
+prop.icc <- ICCResults(gprop$Individual, gprop$Gape_prop)
 tto.icc <- ICCResults(tto$Individual, tto$TTO)
 ttc.icc <- ICCResults(ttc$Individual, ttc$TTC)
 pprot.icc <- ICCResults(pprot$Individual, pprot$PPROT_mag)
@@ -118,13 +121,13 @@ velpc.icc <- ICCResults(velpc$Individual, velpc$VELpreycapture_mag)
 
 #Creating DataFrames 
 
-ICCResults_DF_all <- data.frame(rbind(pg.icc, tto.icc, ttc.icc, pprot.icc, 
+ICCResults_DF_all <- data.frame(rbind(pg.icc,prop.icc, tto.icc, ttc.icc, pprot.icc, 
                                       pprotvel.icc, tpprot.icc, velpg.icc, 
                                       maxvel.icc, tmaxvel.icc, accpg.icc, 
                                       ratio.icc, ai.icc, vol.icc, ppd.icc, 
                                       time.icc, velpc.icc))
 
-ICCResults_DF_all$variable <- c("PG","TTO","TTC","PPROT","PPROTVEL","tPPROT","VELPG",
+ICCResults_DF_all$variable <- c("PG","Gape_prop","TTO","TTC","PPROT","PPROTVEL","tPPROT","VELPG",
                                 "maxVEL","tmaxVEL","ACCPG","H:L","AI", "ingested_volume", "PPDiopen",
                                 "timeatcapture", "VelPreyCapture")
 
@@ -143,11 +146,11 @@ ICC_all$Category <- factor(ICC_all$Category,levels =c("Feeding","Locomotion","Ac
 
 #Plotting ICC + Upper/Lower CI
 
-var_break <- c("PG", "TTO", "TTC", "PPROT", "PPROTVEL", "tPPROT", "VELPG", 
+var_break <- c("PG", "Gape_prop","TTO", "TTC", "PPROT", "PPROTVEL", "tPPROT", "VELPG", 
                "maxVEL", "tmaxVEL", "ACCPG", "timeatcapture", "H:L", 
                "AI", "ingested_volume", "PPDiopen", "VelPreyCapture")
 
-ICC_all <- ICC_all[1:14,]
+ICC_all <- ICC_all[1:15,]
 
 ggplot(ICC_all, aes(x=variable, y=mod.ICC, color=Category))+
   geom_point(aes(size=2))+
