@@ -34,7 +34,7 @@ data <- read.csv("Redbreast2022_MAG.csv")
 # Subset data that will be used in analysis ----
 # Individual
 all.data <- data %>%
-  dplyr::select(Individual,SL_mag,PG_mag,TTO,TTC,PPROT_mag,PPROTVEL_mag,tPPROT,VELPG_mag,maxVEL_mag,tmaxVEL,ACCPG_mag,H_L_ratio,AI,ingested_volume_mag,PPDiopen_mag,timeatcapture,VELpreycapture_mag)%>%
+  dplyr::select(Individual,SL_mag,PG_mag,Gape_prop,TTO,TTC,PPROT_mag,PPROTVEL_mag,tPPROT,VELPG_mag,maxVEL_mag,tmaxVEL,ACCPG_mag,H_L_ratio,AI,ingested_volume_mag,PPDiopen_mag,timeatcapture,VELpreycapture_mag)%>%
   group_by(Individual)%>%
   convert_as_factor(Individual) 
 
@@ -43,6 +43,9 @@ all.data.shap <-  data %>%
   group_by(Individual)%>%
   convert_as_factor(Individual) 
 
+all.data.stat <- data %>%
+  dplyr::select(SL_mag,PG_mag,Gape_prop,TTO,TTC,PPROT_mag,PPROTVEL_mag,tPPROT,VELPG_mag,maxVEL_mag,tmaxVEL,ACCPG_mag,H_L_ratio,AI,ingested_volume_mag,PPDiopen_mag,timeatcapture,VELpreycapture_mag) %>% 
+  get_summary_stats()
 
 # Make sure data is stored as data frame 
 as.data.frame(all.data)
@@ -60,7 +63,7 @@ sd(all.data$SL_mag) # 0.97
 
 # Write to .csv 
 write_csv(means,file = "Redbreast_summarystatXindividual_2021.csv",append = FALSE)
-
+write_csv(all.data.stat, file="Redbreast_summarystatsALL_2022.csv",append=FALSE)
 # Check assumptions ----
 # Normality, homogeneity of variance,independence of observations
 # Independence of observations is not met as each individual is sampled 20 times 
@@ -448,6 +451,7 @@ CoVar <- function(mean,sd){
 
 # use data frame 'means' to supply the mean and sd 
 PG <- CoVar(mean = means$mean[means$variable=="PG_mag"],sd=means$sd[means$variable=="PG_mag"])
+Gape_prop <- CoVar(mean = means$mean[means$variable=="Gape_prop"],sd=means$sd[means$variable=="Gape_prop"])
 TTO <- CoVar(mean = means$mean[means$variable=="TTO"],sd=means$sd[means$variable=="TTO"])
 TTC <- CoVar(mean = means$mean[means$variable=="TTC"],sd=means$sd[means$variable=="TTC"])
 PPROT <- CoVar(mean = means$mean[means$variable=="PPROT_mag"],sd=means$sd[means$variable=="PPROT_mag"])
@@ -465,7 +469,7 @@ timeatcapture <- CoVar(mean = means$mean[means$variable=="timeatcapture"],sd=mea
 VELpreycapture <- CoVar(mean = means$mean[means$variable=="VELpreycapture_mag"],sd=means$sd[means$variable=="VELpreycapture_mag"])
 
 # Merge into a dataframe
-CV <- data.frame(rbind(PG,TTO,TTC,PPROT,PPROTVEL,tPPROT,VELPG,maxVEL,tmaxVEL,ACCPG,H_L_ratio,AI,ingested_volume,PPDiopen,timeatcapture,VELpreycapture))
+CV <- data.frame(rbind(PG,Gape_prop,TTO,TTC,PPROT,PPROTVEL,tPPROT,VELPG,maxVEL,tmaxVEL,ACCPG,H_L_ratio,AI,ingested_volume,PPDiopen,timeatcapture,VELpreycapture))
 
 # rename the columns by individual 
 names(CV)[1] <- "LAUR01"
