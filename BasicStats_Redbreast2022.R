@@ -270,6 +270,9 @@ ggqqplot(all.data$SL) # looks ok
 PGmod.SL <- lmer(PG_mag~SL_mag+(1|Individual),data=all.data)
 summary(PGmod.SL) 
 
+GProp.SL <- lmer(Gape_prop~SL_mag+(1|Individual),data=all.data)
+summary(GProp.SL) 
+
 TTOmod.SL <- lmer(TTO~SL_mag+(1|Individual),data=all.data)
 summary(TTOmod.SL) 
 
@@ -314,6 +317,7 @@ summary(timeatcapturemod.SL)
 
 VELpreycapturemod.SL <- lmer(VELpreycapture_mag~SL_mag+(1|Individual),data=all.data)
 summary(VELpreycapturemod.SL)
+
 
 # Diagnostic plots ---- 
 
