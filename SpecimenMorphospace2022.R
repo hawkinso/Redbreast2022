@@ -23,6 +23,8 @@ library(rptR)
 library(ggridges)
 library(ICC)
 library(cowplot)
+library(plotrix)
+library(nationalparkcolors)
 
 # Load in data 
 data <- read.csv("SpecimenMeans_2022.csv")
@@ -45,8 +47,13 @@ means <- data %>%
   summarise(Mean.D.L=mean(Mean.D.L.ratio),
             sd.DL = sd(Mean.D.L.ratio),
             Mean.pos = mean(Mean.dorsal.fin.position),
-            sd.pos = sd(Mean.dorsal.fin.position))
+            sd.pos = sd(Mean.dorsal.fin.position),
+            se.DL = std.error(Mean.D.L.ratio),
+            se.pos = std.error(Mean.dorsal.fin.position))
   
+means$Genus <- c("Ambloplites","Ambloplites","Centrarchus","Lepomis","Lepomis","Lepomis",
+                         "Lepomis","Lepomis","Lepomis","Lepomis","Lepomis","Lepomis","Lepomis",
+                         "Lepomis","Micropterus","Micropterus","Pomoxis","Pomoxis")
 # Summarize the data for each species with collection in mind and not accounting for state ----
 
 # EAK Collection
@@ -137,13 +144,31 @@ t.test(allmeans.EAK$Mean.dorsal.fin.position[allmeans.EAK$Sci.name=="Lepomis mac
 
 ggplot(data = means,aes(x=Mean.D.L,y=Mean.pos,color=Sci.name,shape=Sci.name))+
   geom_point(size=3)+
-  scale_shape_manual(values = c(1,2,3,4,5,6,7,8,9,10,11))+
+  scale_shape_manual(values=c(1,16,13,0,2,3,4,5,6,7,8,9,10,12,15,18,17,13))+
+  scale_color_manual(values=c('#999999','#E69F00', '#56B4E9'))+
   geom_errorbar(aes(ymin = Mean.pos-sd.pos,ymax = Mean.pos+sd.pos),) + 
   geom_errorbar(aes(xmin = Mean.D.L-sd.DL,xmax = Mean.D.L + sd.DL))+
   theme_classic()+
   xlab("Body depth/Body length")+
   ylab("Dorsal fin position")+
-  xlim(0.3,0.45)+
-  ylim(0.3,0.40)
- 
+  xlim(0.19,0.42)+
+  ylim(0.24,0.42)
+
+# Using standard error 
+ggplot(data = means,aes(x=Mean.D.L,y=Mean.pos,shape=Sci.name,color=Genus))+
+  geom_point(size=2.7)+
+  scale_shape_manual(values = c(0,1,4,2,5,6,7,8,10,12,13,15,16,17,23,22,24,16))+
+  scale_color_manual(values = c("#91D5DE", "#2E8289", "#B4674E", "#EAAE37", "#565F41"))+
+  geom_errorbar(aes(ymin = Mean.pos-se.pos,ymax = Mean.pos+se.pos),) + 
+  geom_errorbar(aes(xmin = Mean.D.L-se.DL,xmax = Mean.D.L + se.DL))+
+  theme_classic()+
+  xlab("Body depth/Body length")+
+  ylab("Dorsal fin position")+
+  xlim(0.19,0.42)+
+  ylim(0.24,0.42)+
+  labs(shape = "Species")+
+  theme(axis.title.x = element_text(face="bold"),
+        axis.title.y = element_text(face="bold"))
+  
+  
 
